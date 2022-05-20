@@ -2,8 +2,15 @@
   <nav>
     <ul>
       <li>
-        <router-link :to="{ name: 'articles' }">Home</router-link>
+        <router-link :to="{ name: 'home' }">Home</router-link>
       </li>
+      <li>
+        <router-link :to="{ name: 'question' }">추천영화</router-link>
+      </li>
+      <li>
+        <router-link :to="{ name: 'event' }">event</router-link>
+      </li>
+
 
       <li v-if="!isLoggedIn">
         <router-link :to="{ name: 'login' }">Login</router-link>
@@ -11,32 +18,37 @@
       <li v-if="!isLoggedIn">
         <router-link :to="{ name: 'signup' }">Signup</router-link>
       </li>
-
-      <li v-if="isLoggedIn">
-        <router-link :to="{ name: 'articleNew' }">New</router-link>
-      </li>
       <li v-if="isLoggedIn">
         <router-link :to="{ name: 'profile', params: { username } }">
           {{ currentUser.username }}'s page
         </router-link>
       </li>
       <li v-if="isLoggedIn">
-        <router-link :to="{ name: 'logout' }">Logout</router-link>
+        <router-link @click.native="logout" :to="{ name: 'home' }">Logout</router-link>
       </li>
+
     </ul>
   </nav>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
+  
 
   export default {
     name: 'NavBar',
+    methods: {
+      ...mapActions(['logout'])
+
+    },
     computed: {
       ...mapGetters(['isLoggedIn', 'currentUser']),
       username() {
         return this.currentUser.username ? this.currentUser.username : 'guest'
       },
+      test(){
+        return this.logout
+      }
     },
   }
 </script>

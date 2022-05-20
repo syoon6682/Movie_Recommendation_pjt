@@ -16,6 +16,7 @@
       </div>
 
       <button>Login</button>
+      <router-link :to="{ name: 'signup' }">Don`t have an account?</router-link>
     </form>
   </div>
 </template>

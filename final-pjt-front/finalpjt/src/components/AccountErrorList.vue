@@ -1,5 +1,5 @@
 <template>
-  <div><p>제발..</p></div>
+  <div>아이디 혹은 비밀번호가 옳지 않습니다. </div>
 </template>
 
 <script>

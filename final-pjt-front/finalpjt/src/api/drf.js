@@ -9,6 +9,7 @@ const REVIEW = 'review/'
 export default {
   accounts: {
     login: () => HOST + ACCOUNTS + 'login/',
+    logout: () => HOST + ACCOUNTS + 'logout/',
     signup: () => HOST + ACCOUNTS + 'signup/',
     // Token 으로 현재 user 판단
     currentUserInfo: () => HOST + ACCOUNTS + 'user/',
