@@ -1,38 +1,44 @@
 <template>
-    <div>
-    <nav class="navbar navbar-expand-lg bg-light">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Features</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Pricing</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled">Disabled</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+  <nav>
+    <ul>
+      <li>
+        <router-link :to="{ name: 'articles' }">Home</router-link>
+      </li>
 
+      <li v-if="!isLoggedIn">
+        <router-link :to="{ name: 'login' }">Login</router-link>
+      </li>
+      <li v-if="!isLoggedIn">
+        <router-link :to="{ name: 'signup' }">Signup</router-link>
+      </li>
+
+      <li v-if="isLoggedIn">
+        <router-link :to="{ name: 'articleNew' }">New</router-link>
+      </li>
+      <li v-if="isLoggedIn">
+        <router-link :to="{ name: 'profile', params: { username } }">
+          {{ currentUser.username }}'s page
+        </router-link>
+      </li>
+      <li v-if="isLoggedIn">
+        <router-link :to="{ name: 'logout' }">Logout</router-link>
+      </li>
+    </ul>
+  </nav>
 </template>
 
 <script>
-export default {
-  name: 'navBar'
-}
+  import { mapGetters } from 'vuex'
+
+  export default {
+    name: 'NavBar',
+    computed: {
+      ...mapGetters(['isLoggedIn', 'currentUser']),
+      username() {
+        return this.currentUser.username ? this.currentUser.username : 'guest'
+      },
+    },
+  }
 </script>
 
-<style>
-
-</style>
+<style></style>
