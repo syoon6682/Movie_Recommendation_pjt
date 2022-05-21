@@ -31,19 +31,20 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    # local apps
+    # local
     'accounts',
     'movies',
-    # 3rd party apps
+    # 3rd party
     'django_extensions',
     
     'rest_framework',
-    'rest_framework.authtoken',  # token 기반 auth
-    # DRF auth
-    'dj_rest_auth',  # signup 제외 auth 관련 담당
-    'dj_rest_auth.registration',  # signup 담당
+    'rest_framework.authtoken', 
 
-    # signup 담당을 위해 필요 
+    # DRF auth
+    'dj_rest_auth',  # signup 제외 auth 관련
+    'dj_rest_auth.registration',  # signup
+
+    # signup을 위해 필요 
     'allauth', 
     'allauth.account',
     'allauth.socialaccount',
@@ -151,18 +152,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.User'
 
-# 특정 origin 에게만 교차 출처 허용
+
 # CORS_ALLOWED_ORIGINS = [
-#     # Vue LocalHost
 #     'http://localhost:8080',
 #     'http://127.0.0.1:8001',
 # ]
 
-# 모두에게 교차출처 허용 (*)
+
 CORS_ALLOW_ALL_ORIGINS = True
 
 
-# DRF 인증 관련 설정
+# DRF 인증 관련 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
