@@ -67,7 +67,7 @@ export default {
           const token = res.data.key
           dispatch('saveToken', token)
           dispatch('fetchCurrentUser')
-          router.push({ name: 'articles' })
+          router.push({ name: 'home' })
         })
         .catch(err => {
           console.error(err.response.data)
@@ -94,7 +94,7 @@ export default {
           const token = res.data.key
           dispatch('saveToken', token)
           dispatch('fetchCurrentUser')
-          router.push({ name: 'articles' })
+          router.push({ name: 'home' })
         })
         .catch(err => {
           console.error(err.response.data)
@@ -169,5 +169,25 @@ export default {
           commit('SET_PROFILE', res.data)
         })
     },
+    addMileage({ commit, getters }, { username }) {
+      /*
+      GET: profile URL로 요청보내기
+        성공하면
+          state.profile에 저장
+      */
+      axios({
+        url: drf.accounts.profile(username),
+        method: 'get',
+        headers: getters.authHeader,
+      })
+        .then(res => {
+          console.log(res)
+          const chargedProfile = res.profile
+          console.log(chargedProfile)
+          commit('SET_PROFILE', res.data)
+        })
+    },
+
+
   },
 }

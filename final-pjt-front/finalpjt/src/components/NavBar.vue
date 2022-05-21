@@ -46,9 +46,6 @@
       username() {
         return this.currentUser.username ? this.currentUser.username : 'guest'
       },
-      test(){
-        return this.logout
-      }
     },
   }
 </script>

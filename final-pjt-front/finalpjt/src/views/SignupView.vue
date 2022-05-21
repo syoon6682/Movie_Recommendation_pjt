@@ -18,6 +18,9 @@
         <label for="password2">Password Confirmation:</label>
         <input v-model="credentials.password2" type="password" id="password2" required />
       </div>
+
+
+
       <div>
         <button>Signup</button>
       </div>
