@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Login</h1>
+    <h1 class="logintitle">Login</h1>
 
     <account-error-list v-if="authError"></account-error-list>
 
@@ -47,4 +47,9 @@
   }
 </script>
 
-<style></style>
+<style>
+  /* @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Do+Hyeon&display=swap');
+  .logintitle {
+    font-family: 'Bangers', sans-serif;
+  } */
+</style>

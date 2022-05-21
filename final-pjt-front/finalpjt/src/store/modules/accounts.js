@@ -12,6 +12,7 @@ export default {
     currentUser: {},
     profile: {},
     authError: null,
+    mileage: localStorage.getItem('mileage')
   },
   // 모든 state는 getters 를 통해서 접근하겠다.
   getters: {
@@ -19,14 +20,16 @@ export default {
     currentUser: state => state.currentUser,
     profile: state => state.profile,
     authError: state => state.authError,
-    authHeader: state => ({ Authorization: `Token ${state.token}`})
+    authHeader: state => ({ Authorization: `Token ${state.token}`}),
+    mileage: state => state.mileage,
   },
 
   mutations: {
     SET_TOKEN: (state, token) => state.token = token,
     SET_CURRENT_USER: (state, user) => state.currentUser = user,
     SET_PROFILE: (state, profile) => state.profile = profile,
-    SET_AUTH_ERROR: (state, error) => state.authError = error
+    SET_AUTH_ERROR: (state, error) => state.authError = error,
+    SET_MILEAGE: (state, mileage) => state.mileage = mileage,
   },
 
   actions: {
@@ -95,6 +98,7 @@ export default {
           dispatch('saveToken', token)
           dispatch('fetchCurrentUser')
           router.push({ name: 'home' })
+          commit('SET_MILEAGE', 0)
         })
         .catch(err => {
           console.error(err.response.data)
@@ -169,31 +173,78 @@ export default {
           commit('SET_PROFILE', res.data)
         })
     },
-    addMileage({getters, dispatch }) {
-      /*
-      GET: 사용자가 로그인 했다면(토큰이 있다면)
-        currentUserInfo URL로 요청보내기
-          성공하면
-            state.cuurentUser에 저장
-          실패하면(토큰이 잘못되었다면)
-            기존 토큰 삭제
-            LoginView로 이동
-      */
-            if (getters.isLoggedIn) {
-              axios({
-                url: drf.accounts.currentUserInfo(),
-                method: 'get',
-                headers: getters.authHeader,
-              })
-                .then(res => console.log(res))
-                .catch(err => {
-                  if (err.response.status === 401) {
-                    dispatch('removeToken')
-                    router.push({ name: 'login' })
-                  }
-                })
-            }
-          },
+
+    updateProfile({getters}, credentials) {
+      if (getters.isLoggedIn) {
+        axios({
+          url: drf.accounts.profileupdate(credentials.data.username),
+          method: 'post',
+          headers: getters.authHeader,
+          data: credentials
+        })
+        .then(res => {
+          console.log(res)
+        })
+      }
+      },
+      
+      addMileage({getters, commit,}, {username, }) {
+        if (getters.isLoggedIn) {
+          axios({
+            url: drf.accounts.mileage(username),
+            method: 'post',
+            headers: getters.authHeader,
+          })
+          .then( () => {
+            let mileage = this.$store.state.accounts.mileage
+            mileage += 1000
+            commit('SET_MILEAGE', mileage)
+            localStorage.setItem('mileage', mileage)
+            // this.$store.state.accounts.mileage.push(mileage)
+          })
+        }
+      }
+    // addMileage({getters, dispatch, commit}, {username}) {
+
+    //         if (getters.isLoggedIn) {
+    //           axios({
+    //             url: drf.accounts.profile(username),
+    //             method: 'get',
+    //             headers: getters.authHeader,
+    //           })
+    //             .then(res => {
+    //               let mileage = res.data.mileage
+    //               mileage += 1000
+    //               res.data.mileage = mileage
+    //               console.log(res)
+    //               commit('SET_PROFILE', res.data)
+    //               dispatch('updateProfile', res)
+    //               // dispatch('fetchCurrentUser')
+    //               }
+    //               )
+    //               .catch(err => {
+    //                 if (err.response.status === 401) {
+    //                   dispatch('removeToken')
+    //                   router.push({ name: 'login' })
+    //                 }
+    //               })
+
+                // .axios({
+                //   url: drf.accounts.profile(editUser),
+                //   method: 'post',
+                //   headers: getters.authHeader,
+                // })
+                // .then(res=>{
+                //   console.log(res)
+                //  })
+                // .catch(err => {
+                //   if (err.response.status === 401) {
+                //     dispatch('removeToken')
+                //     router.push({ name: 'login' })
+                //   }
+                // })
+          //   }
+          // },
 
   },
 }

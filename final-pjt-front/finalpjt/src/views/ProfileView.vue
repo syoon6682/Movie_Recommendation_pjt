@@ -4,7 +4,8 @@
   
   <div>
     <p>{{profile.mileage}}</p>
-    <button @click="addMileage">Charge</button>
+    <p>{{ this.$store.state.accounts.mileage }}</p>
+    <button @click="addMileage(profile)">Charge</button>
   </div>
   
 </div>
@@ -15,11 +16,12 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'ProfileView',
+  
   computed: {
     ...mapGetters(['profile'])
   },
   methods: {
-    ...mapActions(['fetchProfile', 'addMileage']),
+    ...mapActions(['fetchProfile', 'addMileage', 'updateProfile']),
   },
   created() {
     const payload = { username: this.$route.params.username }
