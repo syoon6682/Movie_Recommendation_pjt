@@ -18,10 +18,9 @@ export default {
   },
 
   actions: {
-    saveAnswer({commit, }, ){
+    saveAnswer({commit}, res){
+      console.log(res)
       commit('SET_ANSWER')
-      console.log(this.$store.state.answer)
-      console.log('hello')
     }
   },
 }

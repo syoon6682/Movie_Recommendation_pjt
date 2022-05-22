@@ -15,7 +15,7 @@ import question3 from '@/components/questions/question3.vue'
 import question4 from '@/components/questions/question4.vue'
 import question5 from '@/components/questions/question5.vue'
 
-import { mapGetters } from 'vuex'
+// import { mapGetters } from 'vuex'
 
 export default {
   name: 'QuestionList',
@@ -33,9 +33,10 @@ export default {
         
   },
   computed: {
-    ...mapGetters(['answer']),
-    } 
+    // ...mapGetters(['answer']),
+    }
   }
+
 
 </script>
 

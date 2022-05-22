@@ -6,16 +6,16 @@
       </div>
       <div class="survey">
         <div class="surveyform">
-          <input v-model="picked" class="radiobutton" type="radio" id="parents" value="집" >
+          <input v-model="picked" class="radiobutton" type="radio" id="parents" value="부모님" >
           <label for="parents">부모님</label>
           <br>
-          <input v-model="picked" class="radiobutton" type="radio" id="friends" value="캠핑장" >
+          <input v-model="picked" class="radiobutton" type="radio" id="friends" value="친구" >
           <label for="friends">친구</label>
           <br>
-          <input v-model="picked" class="radiobutton" type="radio" id="lover" value="영화관" >
+          <input v-model="picked" class="radiobutton" type="radio" id="lover" value="연인" >
           <label for="lover">연인</label>
           <br>
-          <input v-model="picked" class="radiobutton" type="radio" id="kids" value="바닷가">
+          <input v-model="picked" class="radiobutton" type="radio" id="kids" value="아이들">
           <label for="kids">아이들</label>
           <br>
           <br>
@@ -23,14 +23,15 @@
           <br>
         </div>
       </div>
-      <div class="buttoncontainer">
-        <button class="savebutton btn">Save</button>
-      </div>
+          <div class="buttoncontainer">
+            <button class="savebutton btn" @click="saveAnswer" >Save</button>
+          </div>
     </div>
   </div>
 </template>
 
 <script>
+// import { mapActions } from 'vuex'
 export default {
   name: 'QuestionOne',
   data:() => {
@@ -40,9 +41,15 @@ export default {
     
   },
   methods: {
-
-    }
+    saveAnswer(){
+      const pick = this.picked
+      this.$store.getters.answer.push(pick)
+      const answer = this.$store.getters.answer
+      console.log(answer)
+  } 
   }
+}
+
 </script>
 
 <style scoped>
