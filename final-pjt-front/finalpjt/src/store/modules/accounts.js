@@ -12,7 +12,7 @@ export default {
     currentUser: {},
     profile: {},
     authError: null,
-    mileage: localStorage.getItem('mileage')
+    mileage: localStorage.getItem()
   },
   // 모든 state는 getters 를 통해서 접근하겠다.
   getters: {
@@ -40,6 +40,12 @@ export default {
       */
       commit('SET_TOKEN', token)
       localStorage.setItem('token', token)
+    },
+
+    changeMileage ({commit}, mileage) {
+
+      commit('SET_MILEAGE', mileage)
+      localStorage.setItem('mileage', mileage)
     },
 
     removeToken({ commit }) {
@@ -96,9 +102,10 @@ export default {
         .then(res => {
           const token = res.data.key
           dispatch('saveToken', token)
+          dispatch('changeMileage', 0)
           dispatch('fetchCurrentUser')
+          console.log(res)
           router.push({ name: 'home' })
-          commit('SET_MILEAGE', 0)
         })
         .catch(err => {
           console.error(err.response.data)
@@ -187,23 +194,43 @@ export default {
         })
       }
       },
-      
-      addMileage({getters, commit,}, {username, }) {
-        if (getters.isLoggedIn) {
-          axios({
-            url: drf.accounts.mileage(username),
-            method: 'post',
-            headers: getters.authHeader,
-          })
-          .then( () => {
-            let mileage = this.$store.state.accounts.mileage
-            mileage += 1000
-            commit('SET_MILEAGE', mileage)
-            localStorage.setItem('mileage', mileage)
-            // this.$store.state.accounts.mileage.push(mileage)
-          })
-        }
+
+      addMileage({getters, dispatch}, {username}) {
+        axios({
+          url: drf.accounts.profile(username),
+          method: 'get',
+          headers: getters.authHeader,
+        })
+        .then(()=> {
+          let mileage = getters.mileage
+          mileage = parseInt(mileage)
+          mileage += 1000
+          console.log(mileage)
+          dispatch('changeMileage', mileage)
+        })
+        
       }
+
+      // addMileage({getters, commit,}, {username}) {
+      //   if (getters.isLoggedIn) {
+      //     axios({
+      //       url: drf.accounts.profile(username),
+      //       method: 'get',
+      //       headers: getters.authHeader,
+      //     })
+      //     .then( () => {
+      //       let mileage = this.$store.state.accounts.mileage
+      //       console.log(mileage)
+      //       mileage += 1000
+      //       commit('SET_MILEAGE', mileage)
+      //       localStorage.setItem('mileage', mileage)
+      //       // this.$store.state.accounts.mileage.push(mileage)
+      //     })
+      //   }
+      // }
+
+
+
     // addMileage({getters, dispatch, commit}, {username}) {
 
     //         if (getters.isLoggedIn) {
