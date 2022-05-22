@@ -12,7 +12,7 @@
       </b-navbar-nav>
 
       <!-- Right aligned nav items -->
-      <b-navbar-nav right class="ml-auto">
+      <b-navbar-nav right class="userinfo ml-auto">
         <b-nav-item v-if="!isLoggedIn" href="/login" style="font-size:20px">Log In</b-nav-item>
         <b-nav-item v-if="!isLoggedIn" href="/signup" style="font-size:20px">Sign Up</b-nav-item>
         <b-nav-item-dropdown right v-if="isLoggedIn" style="font-size:20px">
@@ -23,7 +23,7 @@
               {{ currentUser.username }}
             </em>
           </template>
-          <b-dropdown-item >
+          <b-dropdown-item>
             <b-link :to="{ name: 'profile', params: { username } }" append>
               {{ currentUser.username }}'s PAGE
             </b-link>            
@@ -60,8 +60,12 @@
 </script>
 
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Do+Hyeon&display=swap');
+
   .homelogo {
     font-family: 'Bangers', sans-serif;
+  }
+
+  .homelogo {
+    
   }
 </style>

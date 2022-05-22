@@ -12,7 +12,7 @@ export default {
     currentUser: {},
     profile: {},
     authError: null,
-    mileage: localStorage.getItem()
+    mileage: localStorage.getItem('mileage')
   },
   // 모든 state는 getters 를 통해서 접근하겠다.
   getters: {
