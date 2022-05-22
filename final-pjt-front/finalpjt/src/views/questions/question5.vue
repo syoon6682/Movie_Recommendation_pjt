@@ -1,4 +1,5 @@
 <template>
+  <!-- 일단은 보류! -->
   <div>
     <div class="container">
       <div class="title">
@@ -32,7 +33,7 @@
 
 <script>
 export default {
-  name: 'QuestionThree',
+  name: 'QuestionFive',
   data:() => {
     return {
       picked: ''

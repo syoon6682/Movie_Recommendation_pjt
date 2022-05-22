@@ -2,15 +2,15 @@
   <div>
     <div class="container">
       <div class="title">
-        <h1 class="d-flex justify-content-center"> 누구와 함께 영화를 보나요? </h1>
+        <h1 class="d-flex justify-content-center"> 누구와 영화를 보나요? </h1>
       </div>
       <div class="survey">
         <div class="surveyform">
           <input v-model="picked" class="radiobutton" type="radio" id="parents" value="부모님" >
           <label for="parents">부모님</label>
           <br>
-          <input v-model="picked" class="radiobutton" type="radio" id="friends" value="친구들" >
-          <label for="friends">친구들</label>
+          <input v-model="picked" class="radiobutton" type="radio" id="friends" value="친구" >
+          <label for="friends">친구</label>
           <br>
           <input v-model="picked" class="radiobutton" type="radio" id="lover" value="연인" >
           <label for="lover">연인</label>
@@ -23,16 +23,18 @@
           <br>
         </div>
       </div>
-      <div class="buttoncontainer">
-        <button class="savebutton btn">Save</button>
-      </div>
+          <div class="buttoncontainer">
+            <button class="savebutton btn" @click="saveAnswer1" >Save</button>
+          </div>
     </div>
   </div>
 </template>
 
 <script>
+import router from '@/router'
+// import { mapGetters } from 'vuex'
 export default {
-  name: 'QuestionFour',
+  name: 'QuestionOne',
   data:() => {
     return {
       picked: ''
@@ -40,11 +42,15 @@ export default {
     
   },
   methods: {
-    save() {
-      console.log()
-    }
+    saveAnswer1(){
+      const pick = this.picked
+      localStorage.setItem('answer1', pick)
+      this.$store.getters.answer.push(pick)
+      router.push({name: 'question2'})
+  } 
   }
 }
+
 </script>
 
 <style scoped>
@@ -52,9 +58,9 @@ export default {
     padding: 40px;
   }
 
-.surveyform {
-    font-size: 30px;
-  }
+  .surveyform {
+      font-size: 30px;
+    }
 
   .survey {
     display: flex;

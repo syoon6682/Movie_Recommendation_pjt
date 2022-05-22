@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from rest_framework import api_view
+from .models import Movie
 
 # Create your views here.
 def movie(request):

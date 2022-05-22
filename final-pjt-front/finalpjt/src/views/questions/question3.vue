@@ -2,38 +2,43 @@
   <div>
     <div class="container">
       <div class="title">
-        <h1 class="d-flex justify-content-center"> 누구와 영화를 보나요? </h1>
+        <h1 class="d-flex justify-content-center"> 몇 살인가요? </h1>
       </div>
       <div class="survey">
         <div class="surveyform">
-          <input v-model="picked" class="radiobutton" type="radio" id="parents" value="부모님" >
-          <label for="parents">부모님</label>
+          <input v-model="picked" class="radiobutton" type="radio" id="parents" value="10대 미만" >
+          <label for="less10">10대 미만</label>
           <br>
-          <input v-model="picked" class="radiobutton" type="radio" id="friends" value="친구" >
-          <label for="friends">친구</label>
+          <input v-model="picked" class="radiobutton" type="radio" id="friends" value="10대" >
+          <label for="10">10대</label>
           <br>
-          <input v-model="picked" class="radiobutton" type="radio" id="lover" value="연인" >
-          <label for="lover">연인</label>
+          <input v-model="picked" class="radiobutton" type="radio" id="lover" value="20대~40대" >
+          <label for="2040">20대~40대</label>
           <br>
-          <input v-model="picked" class="radiobutton" type="radio" id="kids" value="아이들">
-          <label for="kids">아이들</label>
+          <input v-model="picked" class="radiobutton" type="radio" id="kids" value="50대~60대">
+          <label for="5060">50대~60대</label>
+          <br>
+          <input v-model="picked" class="radiobutton" type="radio" id="kids" value="70대 이상">
+          <label for="over70">70대 이상</label>
           <br>
           <br>
           <span> {{ picked }} 과 함께 보는 영화 </span>
           <br>
         </div>
       </div>
-          <div class="buttoncontainer">
-            <button class="savebutton btn" @click="saveAnswer" >Save</button>
-          </div>
+      <div class="buttoncontainer">
+        <button class="savebutton btn" @click="saveAnswer3">Save</button>
+      </div>
     </div>
   </div>
 </template>
 
+
 <script>
-// import { mapActions } from 'vuex'
+import router from '@/router'
+
 export default {
-  name: 'QuestionOne',
+  name: 'QuestionThree',
   data:() => {
     return {
       picked: ''
@@ -41,15 +46,14 @@ export default {
     
   },
   methods: {
-    saveAnswer(){
+    saveAnswer3(){
       const pick = this.picked
+      localStorage.setItem('answer3', pick)
       this.$store.getters.answer.push(pick)
-      const answer = this.$store.getters.answer
-      console.log(answer)
+      router.push({name: 'question4'})
   } 
   }
 }
-
 </script>
 
 <style scoped>
@@ -57,9 +61,9 @@ export default {
     padding: 40px;
   }
 
-  .surveyform {
-      font-size: 30px;
-    }
+.surveyform {
+    font-size: 30px;
+  }
 
   .survey {
     display: flex;

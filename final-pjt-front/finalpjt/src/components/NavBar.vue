@@ -8,7 +8,7 @@
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
         <b-nav-item href="/event" style="font-size:20px">EVENT</b-nav-item>
-        <b-nav-item href="/recommendation/question" style="font-size:20px">영화추천</b-nav-item>
+        <b-nav-item href="/recommendation/question1" style="font-size:20px">영화추천</b-nav-item>
       </b-navbar-nav>
 
       <!-- Right aligned nav items -->

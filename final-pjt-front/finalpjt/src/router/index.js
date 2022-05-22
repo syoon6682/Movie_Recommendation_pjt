@@ -10,13 +10,21 @@ import EventList from '@/views/EventList.vue'
 import PopcornView from '@/views/PopcornView.vue'
 import ReviewEvent from '@/views/ReviewEvent.vue'
 import MovieMaking from '@/views/MovieMaking.vue'
-import QuestionList from '@/views/QuestionList.vue'
+// import QuestionList from '@/views/QuestionList.vue'
 import ResultList from '@/views/ResultList.vue'
 import MovieDetail from '@/views/MovieDetail.vue'
 import MovieReview from '@/views/MovieReview.vue'
 import ReviewDetail from '@/views/ReviewDetail.vue'
 import SearchList from '@/views/SearchList.vue'
 import NotFound404 from '@/views/NotFound404.vue'
+import question1 from '@/views/questions/question1.vue'
+import question2 from '@/views/questions/question2.vue'
+import question3 from '@/views/questions/question3.vue'
+import question4 from '@/views/questions/question4.vue'
+import question5 from '@/views/questions/question5.vue'
+
+
+
 
 
 
@@ -75,10 +83,35 @@ const routes = [
     name: 'moviemaking',
     component: MovieMaking
   },
+  // {
+  //   path: '/recommendation/question',
+  //   name: 'question',
+  //   component: QuestionList
+  // },
   {
-    path: '/recommendation/question',
-    name: 'question',
-    component: QuestionList
+    path: '/recommendation/question1',
+    name: 'question1',
+    component: question1
+  },
+  {
+    path: '/recommendation/question2',
+    name: 'question2',
+    component: question2
+  },
+  {
+    path: '/recommendation/question3',
+    name: 'question3',
+    component: question3 
+  },
+  {
+    path: '/recommendation/question4',
+    name: 'question4',
+    component: question4
+  },
+  {
+    path: '/recommendation/question5',
+    name: 'question5',
+    component: question5
   },
   {
     path: '/recommendation/result',

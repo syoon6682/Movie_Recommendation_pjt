@@ -2,37 +2,40 @@
   <div>
     <div class="container">
       <div class="title">
-        <h1 class="d-flex justify-content-center"> 어디서 영화를 보나요? </h1>
+        <h1 class="d-flex justify-content-center"> 기분이 어떤가요? </h1>
       </div>
       <div class="survey">
         <div class="surveyform">
-          <input v-model="picked" class="radiobutton" type="radio" id="parents" value="집" >
-          <label for="parents">집</label>
+          <input v-model="picked" class="radiobutton" type="radio" id="parents" value="행복" >
+          <label for="happy">아주 행복</label>
           <br>
-          <input v-model="picked" class="radiobutton" type="radio" id="friends" value="캠핑장" >
-          <label for="friends">캠핑장</label>
+          <input v-model="picked" class="radiobutton" type="radio" id="friends" value="화남" >
+          <label for="mad">화남</label>
           <br>
-          <input v-model="picked" class="radiobutton" type="radio" id="lover" value="영화관" >
-          <label for="lover">영화관</label>
+          <input v-model="picked" class="radiobutton" type="radio" id="lover" value="우울" >
+          <label for="blue">우울</label>
           <br>
-          <input v-model="picked" class="radiobutton" type="radio" id="kids" value="바닷가">
-          <label for="beach">바닷가</label>
+          <input v-model="picked" class="radiobutton" type="radio" id="kids" value="심심">
+          <label for="bored">심심</label>
           <br>
           <br>
-          <span> {{ picked }} 에서 보는 영화 </span>
+          <span> {{ picked }} 할 때 보는 영화 </span>
           <br>
         </div>
       </div>
       <div class="buttoncontainer">
-        <button class="savebutton btn">Save</button>
+        <button class="savebutton btn" @click="saveAnswer4">Save</button>
       </div>
     </div>
   </div>
 </template>
 
+
 <script>
+import router from '@/router'
+
 export default {
-  name: 'QuestionTwo',
+  name: 'QuestionFour',
   data:() => {
     return {
       picked: ''
@@ -40,9 +43,14 @@ export default {
     
   },
   methods: {
-
-    }
+    saveAnswer4(){
+      const pick = this.picked
+      localStorage.setItem('answer4', pick)
+      this.$store.getters.answer.push(pick)
+      router.push({name: 'result'})
+  } 
   }
+}
 </script>
 
 <style scoped>
@@ -50,9 +58,9 @@ export default {
     padding: 40px;
   }
 
-  .surveyform {
-      font-size: 30px;
-    }
+.surveyform {
+    font-size: 30px;
+  }
 
   .survey {
     display: flex;
