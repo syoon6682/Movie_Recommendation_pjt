@@ -1,6 +1,7 @@
 // import router from '@/router'
 import axios from 'axios'
 import drf from '@/api/drf'
+import accounts from './accounts'
 
 
 export default {
@@ -41,17 +42,21 @@ export default {
       console.log(res)
       commit('SET_ANSWER')
     },
-    getResults(){
 
+    // Question result request & response
+    getResults(){
       axios({
         url: drf.recommendation.recommendationresult(),
-        method: 'post',
-        params:{
-          answer1: 1,
-          answer2: 2,
-          answer3: 3,
-          answer4: 4,
-        }        
+        method: 'get',
+        headers: {
+          Authorization: 'Token ' + accounts.state.token
+        },
+        // params:{
+        //   answer1: 1,
+        //   answer2: 2,
+        //   answer3: 3, 
+        //   answer4: 4,
+        // }        
       })
         .then(res => {
           console.log(res)
@@ -60,6 +65,8 @@ export default {
         console.error(err.response.data)
         })
   },
+
+  // homeview movie display 
   getMovie({commit}, movies) {
     const MOVIE_URL = "https://api.themoviedb.org/3/movie/popular?api_key=d7ce0ca6196a14ee5e3eab47f84bbba5&language=en-US&page=1"
     axios.get(MOVIE_URL)

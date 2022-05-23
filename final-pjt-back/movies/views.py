@@ -18,10 +18,12 @@ def popular_movies(request):
     print('hello')
     response = requests.get(BASE_URL + path, params=params)
     print('hi')
+    serializer = MovieSerializer(response)
+    print(serializer)
     if response.status_code != 200:
         print(response)
     print(type(response.json()))
-    return Response(response.json())
+    return Response(MovieSerializer.data)
 
 
 # Create your views here.
@@ -36,10 +38,38 @@ def review_detail(request):
 
 def recommendation_question(request):
     pass
+
+# @api_view(('GET',))
+# def recommendation_result(request):
+#     print('도착은 했니..?')
+#     BASE_URL = 'https://api.themoviedb.org/3'
+#     path = '/movie/popular'
+#     params = {
+#         'api_key' : '41fb3f0fa7ec42fed3af89fea38a8765',
+#     }
+#     print('hello')
+#     response = requests.get(BASE_URL + path, params=params)
+#     print('hi')
+#     serializer = MovieSerializer(response)
+#     print(serializer)
+#     if response.status_code != 200:
+#         print(response)
+#     print(type(response.json()))
     
+#     return Response(MovieSerializer.data)
+
+@api_view(('GET',))
 def recommendation_result(request):
-    
     print('도착은 했니..?')
+    BASE_URL = 'https://api.themoviedb.org/3'
+    path = '/movie/popular'
+    params = {
+        'api_key' : '41fb3f0fa7ec42fed3af89fea38a8765',
+    }
+    response = requests.get(BASE_URL + path, params=params)
+    if response.status_code != 200:
+        print(response)
+    return Response(response.json())
 
 
 def event_list(request):
