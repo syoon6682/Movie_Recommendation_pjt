@@ -1,0 +1,25 @@
+<template>
+<div class="col mb-4">
+  <div class="card" style="width: 18rem;" props="movie">
+    <img :src="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="poster" class="card-img-top">
+    <div class="card-body">
+      <h3> {{movie.title}}</h3>
+      <p class="card-text">{{movie.overview}}</p>
+    </div>
+  </div>
+</div>
+    
+</template>
+
+<script>
+export default {
+  name: 'MoiveCard',
+  props: {
+    movie: Object,
+  }
+}
+</script>
+
+<style>
+
+</style>
