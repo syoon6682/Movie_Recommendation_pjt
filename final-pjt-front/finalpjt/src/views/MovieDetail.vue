@@ -12,7 +12,7 @@ export default {
     ...mapActions(['fetchMovie']),
   },
   created() {
-    let payload = { moviePk: 335787 }
+    let payload = { moviePk: '335787' }
     this.fetchMovie(payload)
   }
 }

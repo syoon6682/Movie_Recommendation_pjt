@@ -20,11 +20,9 @@
   <div>
     <div class="home">
     <div class="row row-cols-3 row-cols-md-5 g-4">
-      <ul>
-      <li v-for="movie in recommMovie" :key="movie.id">
-        <router-link :to="{name: 'moviedetail', params: {moviePk: movie.id}}" >'{{movie.title}}</router-link> 
-      </li>
-      </ul>
+ <div class="row row-cols-3 row-cols-md-5 g-4">
+    <movie-card v-for="movie in recommMovie" :key="movie.id" :movie="movie"></movie-card>
+  </div>
   </div>
   </div>
   </div>
@@ -32,7 +30,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-// import MovieCard from '@/components/MovieCard.vue'
+import MovieCard from '@/components/MovieCard.vue'
 
 // import axios from 'axios'
 // import drf from '@/api/drf'
@@ -40,7 +38,7 @@ import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'ResultList',
   components : {
-    // MovieCard,
+    MovieCard,
   },
   data() {
     return {
