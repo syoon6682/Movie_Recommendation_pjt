@@ -44,13 +44,14 @@ export default {
       commit('SET_ANSWER')
     },
     getResults({commit}){
+      // console.log(accounts.getters.authHeader(accounts.state))
       axios({
         url: drf.recommendation.recommendationresult(),
         method: 'get',
-        // headers: accounts.getters.authHeader,
-        headers: {
-          Authorization: 'Token ' + accounts.state.token
-        },
+        headers: accounts.getters.authHeader(accounts.state),
+        // headers: {
+        //   Authorization: 'Token ' + accounts.state.token
+        // },
         // params:{
         //   answer1: 1,
         //   answer2: 2,
