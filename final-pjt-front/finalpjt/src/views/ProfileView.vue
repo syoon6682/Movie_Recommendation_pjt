@@ -1,11 +1,11 @@
 <template>
 <div>
-  <h1>{{profile.username}}</h1>
+  <h1>{{profile.username}}님 안녕하세요!</h1>
   
   <div>
-    <p>{{profile.mileage}}</p>
-    <p>{{ this.$store.state.accounts.mileage }}</p>
-    <button @click="addMileage(profile)">Charge</button>
+    <p>내 마일리지: {{ this.$store.state.accounts.mileage }}</p>
+    <button @click="addMileage(profile)" class="btn btn-danger">Charge</button>
+    
   </div>
   
 </div>

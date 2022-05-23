@@ -5,7 +5,7 @@ import HomeView from '@/views/HomeView.vue'
 import LoginView from '@/views/LoginView.vue'
 import SignupView from '@/views/SignupView.vue'
 import ProfileView from '@/views/ProfileView.vue'
-import ProfileUpdate from '@/views/ProfileUpdate.vue'
+// import ProfileUpdate from '@/views/ProfileUpdate.vue'
 import EventList from '@/views/EventList.vue'
 import PopcornView from '@/views/PopcornView.vue'
 import ReviewEvent from '@/views/ReviewEvent.vue'
@@ -51,11 +51,11 @@ const routes = [
     name: 'profile',
     component: ProfileView
   },
-  {
-    path: '/profile/:username/update',
-    name: 'profileupdate',
-    component: ProfileUpdate
-  },
+  // {
+  //   path: '/profile/:username/update',
+  //   name: 'profileupdate',
+  //   component: ProfileUpdate
+  // },
   // 우선은 검색기능 보류...
   {
     path: '/Search/:search',
