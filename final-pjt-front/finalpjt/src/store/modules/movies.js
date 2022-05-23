@@ -23,6 +23,7 @@ export default {
     answer3:state => state.answer3,
     answer4:state => state.answer4,
     answer5:state => state.answer5,
+    recommMovie: state => state.movies,
   },
 
   mutations: {
@@ -42,16 +43,14 @@ export default {
       console.log(res)
       commit('SET_ANSWER')
     },
-    getResults(){
-      console.log(accounts.getters.authHeader)
+    getResults({commit}){
       axios({
         url: drf.recommendation.recommendationresult(),
         method: 'get',
-        headers: accounts.getters.authHeader,
-        // headers: {
-        //   Authorization: 'Token ' + this.accounts.state.token
-        // },
-
+        // headers: accounts.getters.authHeader,
+        headers: {
+          Authorization: 'Token ' + accounts.state.token
+        },
         // params:{
         //   answer1: 1,
         //   answer2: 2,
@@ -60,7 +59,7 @@ export default {
         // }        
       })
         .then(res => {
-          console.log(res)
+          commit('GETMOVIES', res.data)
         })
         .catch(err => {
           console.error(err.response.data)
@@ -75,5 +74,21 @@ export default {
         }
       );
   },
-}
+
+  fetchMovie( { getters }, {moviePk}) {
+    axios({
+      url: drf.movies.movie(moviePk),
+      method: 'get',
+      headers: {
+        Authorization: 'Token ' + accounts.state.token
+      },
+    })
+      .then(res => {
+        console.log(res)
+        console.log(getters.recommMovie)
+        // commit('GETMOVIES', res.data)
+      })
+  },
+
+  }
 }

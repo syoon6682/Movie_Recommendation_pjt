@@ -26,8 +26,11 @@ def popular_movies(request):
 
 
 # Create your views here.
-def movie(request):
-    pass
+@api_view(('GET',))
+def movie(request, movie_pk):
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    serializer = MovieSerializer(movie)
+    return Response(serializer.data)
 
 def review_list(request):
     pass
@@ -61,7 +64,6 @@ def recommendation_question(request):
 # @renderer_classes((JSONRenderer))
 def recommendation_result(request):
     movie = get_list_or_404(Movie)
-    print(movie)
     serializer = MovieSerializer(movie, many=True)
     return Response(serializer.data)
 
