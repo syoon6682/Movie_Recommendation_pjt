@@ -163,7 +163,7 @@ export default {
       */
       axios({
         url: drf.accounts.profile(username),
-        method: 'post',
+        method: 'get',
         headers: getters.authHeader,
       })
         .then(res => {

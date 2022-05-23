@@ -14,12 +14,13 @@ export default {
     // Token 으로 현재 user 판단
     currentUserInfo: () => HOST + ACCOUNTS + 'user/',
     // username으로 프로필 제공
-    profile: username => HOST + ACCOUNTS + 'profile/' + username,
+    profile: username => HOST + ACCOUNTS + 'profile/' + username +'/',
     profileupdate: username => HOST + ACCOUNTS + 'profile/' + username + '/update/',
-    mileage: username => HOST + ACCOUNTS + 'mileage/' + username 
+    mileage: username => HOST + ACCOUNTS + 'mileage/' + username + '/'
   },
   movies: {
     // /movies/1/
+    movieList: () => HOST + MOVIES,
     movie: moviePk => HOST +  MOVIES + `${moviePk}/`,
     review: moviePk => HOST + MOVIES + `${moviePk}/` + REVIEW,
     reviewdetail: (moviePk, reviewPk) => HOST + MOVIES + `${moviePk}/` + REVIEW + `${reviewPk}/`,

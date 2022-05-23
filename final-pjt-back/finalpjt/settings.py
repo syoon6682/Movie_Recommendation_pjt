@@ -172,8 +172,11 @@ REST_FRAMEWORK = {
 
         # 인증된 사용자만 모든일이 가능 / 비인증 사용자는 모두 401 Unauthorized
         'rest_framework.permissions.IsAuthenticated'
-    ]
+    ],
+    "DEFAULT_RENDERER_CLASSES": (
+        "rest_framework.renderers.JSONRenderer",
+    ),
 }
 
 
-CSRF_TRUSTED_ORIGINS = ['http://localhost:8080/*']
+# CSRF_TRUSTED_ORIGINS = ['http://localhost:8080/*']

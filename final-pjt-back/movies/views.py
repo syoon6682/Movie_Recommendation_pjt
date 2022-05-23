@@ -1,6 +1,28 @@
-from django.shortcuts import render
-from rest_framework.decorators import api_view
+from django.http import JsonResponse
+from django.shortcuts import get_list_or_404, render
+from rest_framework.decorators import renderer_classes, api_view
+from rest_framework.response import Response
 from .models import Movie
+from .serializers import MovieSerializer
+import requests
+from rest_framework.renderers import JSONRenderer
+
+@api_view(('GET',))
+# @renderer_classes((JSONRenderer))
+def popular_movies(request):
+    BASE_URL = 'https://api.themoviedb.org/3'
+    path = '/movie/popular'
+    params = {
+        'api_key' : '41fb3f0fa7ec42fed3af89fea38a8765',
+    }
+    print('hello')
+    response = requests.get(BASE_URL + path, params=params)
+    print('hi')
+    if response.status_code != 200:
+        print(response)
+    print(type(response.json()))
+    return Response(response.json())
+
 
 # Create your views here.
 def movie(request):
