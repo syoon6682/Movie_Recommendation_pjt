@@ -1,6 +1,6 @@
 // import router from '@/router'
-// import axios from 'axios'
-// import drf from '@/api/drf'
+import axios from 'axios'
+import drf from '@/api/drf'
 
 
 export default {
@@ -36,6 +36,26 @@ export default {
     saveAnswer({commit}, res){
       console.log(res)
       commit('SET_ANSWER')
-    }
+    },
+
+    getResults(){
+
+      axios({
+        url: drf.recommendation.recommendationresult(),
+        method: 'post',
+        params:{
+          answer1: 1,
+          answer2: 2,
+          answer3: 3,
+          answer4: 4,
+        }        
+      })
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+        console.error(err.response.data)
+        })
   },
+}
 }

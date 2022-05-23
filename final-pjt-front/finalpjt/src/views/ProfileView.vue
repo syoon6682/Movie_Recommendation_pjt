@@ -23,6 +23,7 @@ export default {
   methods: {
     ...mapActions(['fetchProfile', 'addMileage', 'updateProfile']),
   },
+  
   created() {
     const payload = { username: this.$route.params.username }
     this.fetchProfile(payload)

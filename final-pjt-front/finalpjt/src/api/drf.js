@@ -27,7 +27,7 @@ export default {
   },
   recommendation: {
     recommendationquestion: () => HOST + MOVIES + RECOMMENDATION + 'question/',
-    recommendationresult: () => HOST + MOVIES + RECOMMENDATION + 'result/',
+    recommendationresult: () => HOST + MOVIES + RECOMMENDATION + 'result/'
   },
   event : {
     event: () => HOST + MOVIES + EVENT,

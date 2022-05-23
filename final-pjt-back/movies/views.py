@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import api_view
+from rest_framework.decorators import api_view
 from .models import Movie
 
 # Create your views here.
@@ -14,9 +14,11 @@ def review_detail(request):
 
 def recommendation_question(request):
     pass
-
+    
 def recommendation_result(request):
-    pass
+    
+    print('도착은 했니..?')
+
 
 def event_list(request):
     pass
