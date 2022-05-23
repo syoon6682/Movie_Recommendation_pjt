@@ -7,15 +7,15 @@
 export default {
 
   state: {
-
+    // popcorn: localStorage.setItem('popcorn')
   },
 
   getters: {
-
+    // popcorn:state => state.popcorn,
   },
 
   mutations: {
- 
+    // SET_POPCORN: (state, popcorn) => state.popcorn = popcorn
   },
 
   actions: {

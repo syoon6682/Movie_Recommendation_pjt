@@ -117,6 +117,7 @@ export default {
       }
     },
 
+    // object unpacking
     fetchProfile({ commit, getters }, { username }) {
       axios({
         url: drf.accounts.profile(username),

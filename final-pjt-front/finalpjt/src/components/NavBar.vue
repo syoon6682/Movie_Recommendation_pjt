@@ -65,7 +65,4 @@
     font-family: 'Bangers', sans-serif;
   }
 
-  .homelogo {
-    
-  }
 </style>
