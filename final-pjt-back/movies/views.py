@@ -2,11 +2,12 @@ from django.http import JsonResponse
 from django.shortcuts import get_list_or_404, render, get_object_or_404
 from rest_framework.decorators import renderer_classes, api_view
 from rest_framework.response import Response
-from .models import Movie, Genre
+from .models import Movie, Review
 from .serializers import MovieSerializer, ReviewSerializer
 import requests
 from rest_framework.renderers import JSONRenderer
 from collections import OrderedDict
+from rest_framework import status
 
 @api_view(('GET',))
 def popular_movies(request):
@@ -43,34 +44,30 @@ def new_review(request, movie_pk):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-@api_view(['GET', 'PUT', 'DELETE'])
-def review_detail_or_update_or_delete(request, review_pk):
+
+@api_view(['GET'])
+def review_detail(request, review_pk):
     review = get_object_or_404(Review, pk=review_pk)
+    serializer = ReviewSerializer(review)
+    return Response(serializer.data)
 
-    def review_detail():
-        serializer = ReviewSerializer(review)
-        return Response(serializer.data)
+@api_view(['PUT'])
+def update_review(request, review_pk):
+    review = get_object_or_404(Review, pk=review_pk)
+    if request.user == review.user:
+        serializer = ReviewSerializer(instance=review, data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)
 
-    def update_review():
-        if request.user == review.user:
-            serializer = ReviewSerializer(instance=review, data=request.data)
-            if serializer.is_valid(raise_exception=True):
-                serializer.save()
-                return Response(serializer.data)
+@api_view(['DELETE'])
+def delete_review(request, review_pk):
+    review = get_object_or_404(Review, pk=review_pk)
+    if request.user == review.user:
+        review.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
-    def delete_review():
-        if request.user == review.user:
-            review.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
 
-    if request.method == 'GET':
-        return review_detail()
-    elif request.method == 'PUT':
-        if request.user == review.user:
-            return update_review()
-    elif request.method == 'DELETE':
-        if request.user == review.user:
-            return delete_review()
 
 
 
@@ -104,7 +101,6 @@ def recommendation_question(request):
 # @renderer_classes((JSONRenderer))
 def recommendation_result(request):
     movies = get_list_or_404(Movie)
-    genres = get_list_or_404(Genre)
     answer = request.GET.getlist('answer[]')
     answer1= answer[0]
     answer2= answer[1]
@@ -118,16 +114,20 @@ def recommendation_result(request):
 
     if answer1 == '부모님':
         for movie in movies:
-            if movie.genre_ids.filter(name = '로맨스').exists():
+            if not movie.genre_ids.filter(name = '애니메이션').exists() and movie.genre_ids.filter(name = '코미디').exists() :
                 data.append(movie)
-                
-        pass
     elif answer1 == '친구':
-        pass
+        for movie in movies:
+            if movie.genre_ids.filter(name = '애니메이션').exists():
+                data.append(movie)
     elif answer1 == '연인':
-        pass
+        for movie in movies:
+            if movie.genre_ids.filter(name = '로맨스').exists() and movie.genre_ids.filter(name = '코미디').exists() :
+                data.append(movie)
     elif answer1 == '아이들':
-        pass
+        for movie in movies:
+            if movie.genre_ids.filter(name = '애니메이션').exists() or movie.genre_ids.filter(name = 'SF').exists() :
+                data.append(movie)
 
 
     if answer2 == '집':
