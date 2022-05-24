@@ -1,19 +1,27 @@
 <template>
   <div>
-    <h1>나 여기 있어요..</h1>
+    <h1>Detail page</h1>
+    <p>{{recommMovie.id}}</p>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'MovieDetail',
+  data() {
+  return {
+      movieId: this.$route.params.movieId,
+    }
+  },
+  computed: {
+    ...mapGetters(['recommMovie'])
+  },
   methods: {
     ...mapActions(['fetchMovie']),
   },
   created() {
-    let payload = { movieId: 335787 }
-    this.fetchMovie(payload)
+    this.fetchMovie(this.movieId)
   }
 }
 </script>

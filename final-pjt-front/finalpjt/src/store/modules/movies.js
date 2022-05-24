@@ -1,4 +1,4 @@
-// import router from '@/router'
+import router from '@/router'
 import axios from 'axios'
 import drf from '@/api/drf'
 import accounts from '@/store/modules/accounts'
@@ -43,21 +43,18 @@ export default {
       console.log(res)
       commit('SET_ANSWER')
     },
-    getResults({commit}){
+    getResults({commit, getters}){
       // console.log(accounts.getters.authHeader(accounts.state))
       axios({
         url: drf.recommendation.recommendationresult(),
         method: 'get',
         headers: accounts.getters.authHeader(accounts.state),
-        // headers: {
-        //   Authorization: 'Token ' + accounts.state.token
-        // },
-        // params:{
-        //   answer1: 1,
-        //   answer2: 2,
-        //   answer3: 3,
-        //   answer4: 4,
-        // }        
+        params:{
+          answer1: getters.answer1,
+          answer2: getters.answer2,
+          answer3: getters.answer3,
+          answer4: getters.answer4,
+        }        
       })
         .then(res => {
           commit('GETMOVIES', res.data)
@@ -66,6 +63,8 @@ export default {
           console.error(err.response.data)
         })
   },
+
+  // home 화면 영화 display
   getMovie({commit}, movies) {
     const MOVIE_URL = "https://api.themoviedb.org/3/movie/popular?api_key=d7ce0ca6196a14ee5e3eab47f84bbba5&language=en-US&page=1"
     axios.get(MOVIE_URL)
@@ -76,7 +75,7 @@ export default {
       );
   },
 
-  fetchMovie( { getters }, {movieId}) {
+  fetchMovie( { commit }, movieId) {
     axios({
       url: drf.movies.movie(movieId),
       method: 'get',
@@ -85,11 +84,37 @@ export default {
       },
     })
       .then(res => {
-        console.log(res)
-        console.log(getters.recommMovie)
-        // commit('GETMOVIES', res.data)
+        commit('GETMOVIES', res.data)
+      })
+      .catch(err => {
+        console.error(err.response)
+        if (err.response.status === 404) {
+          router.push({ name: 'notfound404' })
+        }
       })
   },
+
+  // moveToDetail({}) {
+  //   dispatch('GET_MOVIES', )
+  // }
+  
+
+  // fetchArticle({ commit, getters }, articlePk) {
+
+  //   axios({
+  //     url: drf.articles.article(articlePk),
+  //     method: 'get',
+  //     headers: getters.authHeader,
+  //   })
+  //     .then(res => commit('SET_ARTICLE', res.data))
+  //     .catch(err => {
+  //       console.error(err.response)
+  //       if (err.response.status === 404) {
+  //         router.push({ name: 'NotFound404' })
+  //       }
+  //     })
+  // },
+
 
   }
 }

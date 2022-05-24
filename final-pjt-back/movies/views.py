@@ -63,6 +63,8 @@ def recommendation_question(request):
 @api_view(('GET',))
 # @renderer_classes((JSONRenderer))
 def recommendation_result(request):
+    print('test')
+    print(request.GET['answer1'])
     movie = get_list_or_404(Movie)
     serializer = MovieSerializer(movie, many=True)
     return Response(serializer.data)
