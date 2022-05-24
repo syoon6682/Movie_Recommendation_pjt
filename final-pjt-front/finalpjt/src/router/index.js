@@ -2,19 +2,22 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import HomeView from '@/views/HomeView.vue'
+
+// account
 import LoginView from '@/views/LoginView.vue'
 import SignupView from '@/views/SignupView.vue'
 import ProfileView from '@/views/ProfileView.vue'
 // import ProfileUpdate from '@/views/ProfileUpdate.vue'
+
+// event
 import EventList from '@/views/EventList.vue'
 import PopcornView from '@/views/PopcornView.vue'
 import ReviewEvent from '@/views/ReviewEvent.vue'
 import MovieMaking from '@/views/MovieMaking.vue'
 // import QuestionList from '@/views/QuestionList.vue'
+
+// recommendation
 import ResultList from '@/views/ResultList.vue'
-import MovieDetail from '@/views/MovieDetail.vue'
-import MovieReview from '@/views/MovieReview.vue'
-import ReviewDetail from '@/views/ReviewDetail.vue'
 import SearchList from '@/views/SearchList.vue'
 import NotFound404 from '@/views/NotFound404.vue'
 import question1 from '@/views/questions/question1.vue'
@@ -23,7 +26,10 @@ import question3 from '@/views/questions/question3.vue'
 import question4 from '@/views/questions/question4.vue'
 import question5 from '@/views/questions/question5.vue'
 
-
+// review
+import MovieDetail from '@/views/MovieDetail.vue'
+import ReviewDetail from '@/views/ReviewDetail.vue'
+import NewReview from '@/views/NewReview.vue'
 
 
 
@@ -124,12 +130,12 @@ const routes = [
     component: MovieDetail
   },
   {
-    path: '/movie/:movie/review',
-    name: 'moviereview',
-    component: MovieReview
+    path: '/movie/:movieId/review/new',
+    name: 'newreview',
+    component: NewReview
   },
   {
-    path: '/movie/:movie/review/:review',
+    path: '/movie/:movieId/review/:reviewId',
     name: 'reviewdetail',
     component: ReviewDetail
   },

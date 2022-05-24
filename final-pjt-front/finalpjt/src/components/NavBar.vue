@@ -65,4 +65,8 @@
     font-family: 'Bangers', sans-serif;
   }
 
+  .userinfo {
+    display: flex;
+    margin-left: auto;
+  }
 </style>

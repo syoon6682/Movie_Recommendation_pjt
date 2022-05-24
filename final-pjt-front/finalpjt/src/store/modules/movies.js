@@ -2,31 +2,52 @@ import router from '@/router'
 import axios from 'axios'
 import drf from '@/api/drf'
 import accounts from '@/store/modules/accounts'
-
+import _ from 'lodash'
 
 export default {
 
   state: {
+    reviews: [],
+    review: {},
+
     answer: [],
     answer1: localStorage.getItem('answer1'),
     answer2: localStorage.getItem('answer2'),
     answer3: localStorage.getItem('answer3'),
     answer4: localStorage.getItem('answer4'),
     answer5: localStorage.getItem('answer5'),
+
     movies: null
   },
 
   getters: {
+    // movie detail안의 review
+    reviews: state => state.reviews,
+    review: state => state.review,
+    isAuthor: (state, getters) => {
+      return state.review.user?.username === getters.currentUser.username
+    },
+    isReview: state => !_.isEmpty(state.review),
+ 
+
+    // recommendation 대답들
     answer:state => state.answer,
     answer1:state => state.answer1,
     answer2:state => state.answer2,
     answer3:state => state.answer3,
     answer4:state => state.answer4,
     answer5:state => state.answer5,
+
+    // recommendation에서 나올 영화들
     recommMovie: state => state.movies,
   },
 
   mutations: {
+    // review
+    SET_REVIEWS: (state, reviews) => state.reviews = reviews,
+    SET_REVIEW: (state, review) => state.review = review,
+
+    // answer
     SET_ANSWER: (state, answer) => state.answer=answer, 
     SET_ANSWER1: (state, answer1) => state.answer1=answer1, 
     SET_ANSWER2: (state, answer2) => state.answer2=answer2,  
@@ -39,6 +60,92 @@ export default {
   },
 
   actions: {
+  //review
+  fetchReviews({ commit, getters }) {
+    axios({
+      url: drf.movies.review(),
+      method: 'get',
+      headers: getters.authHeader,
+    })
+      .then(res => commit('SET_REVIEWS', res.data))
+      .catch(err => console.error(err.response))
+  },
+
+  fetchReview({ commit, getters }, reviewPk) {
+    axios({
+      url: drf.movies.review(reviewPk),
+      method: 'get',
+      headers: getters.authHeader,
+    })
+      .then(res => commit('SET_REVIEW', res.data))
+      .catch(err => {
+        console.error(err.response)
+        if (err.response.status === 404) {
+          router.push({ name: 'NotFound404' })
+        }
+      })
+  },
+
+  createReview({ getters }, {review, moviePk}) {
+    axios({
+      url: drf.movies.newreview(moviePk),
+      method: 'post',
+      data: review,
+      headers: getters.authHeader,
+    })
+      .then(res => {
+        console.log(res)
+        // commit('SET_REVIEW', res.data)
+        // router.push({
+        //   name: 'review',
+        //   params: { reviewPk: getters.review.pk, moviePk: getters.movie.pk }
+        // })
+      })
+  },
+
+  updateReview({ commit, getters }, { pk, title, content}) {
+    axios({
+      url: drf.movies.review(pk),
+      method: 'put',
+      data: { title, content },
+      headers: getters.authHeader,
+    })
+      .then(res => {
+        commit('SET_REVIEW', res.data)
+        router.push({
+          name: 'review',
+          params: { reviewPk: getters.review.pk }
+        })
+      })
+  },
+
+  deleteReview({ commit, getters }, reviewPk) {
+    if (confirm('정말 삭제하시겠습니까?')) {
+      axios({
+        url: drf.movies.review(reviewPk),
+        method: 'delete',
+        headers: getters.authHeader,
+      })
+        .then(() => {
+          commit('SET_REVIEW', {})
+          router.push({ name: 'reviews' })
+        })
+        .catch(err => console.error(err.response))
+    }
+  },
+
+  likeReview({ commit, getters }, reviewPk) {
+    axios({
+      url: drf.movies.likeReview(reviewPk),
+      method: 'post',
+      headers: getters.authHeader,
+    })
+      .then(res => commit('SET_REVIEW', res.data))
+      .catch(err => console.error(err.response))
+  },
+
+
+    // recommendations - answers
     saveAnswer({commit}, res){
       console.log(res)
       commit('SET_ANSWER')
