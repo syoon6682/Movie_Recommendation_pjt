@@ -1,5 +1,7 @@
 <template>
   <div>
+    <div :style="{ backgroundImage: url('https://image.tmdb.org/t/p/w500' + '${recommMovie.poster_path}')}">
+    </div>
     <h1>MOVIE DETAIL</h1>
     <br>
     <div class="container" style="width: 800px;">
