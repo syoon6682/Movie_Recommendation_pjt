@@ -3,7 +3,7 @@ from django.shortcuts import get_list_or_404, render, get_object_or_404
 from rest_framework.decorators import renderer_classes, api_view
 from rest_framework.response import Response
 from .models import Movie, Genre
-from .serializers import MovieSerializer
+from .serializers import MovieSerializer, ReviewSerializer
 import requests
 from rest_framework.renderers import JSONRenderer
 from collections import OrderedDict
@@ -33,11 +33,50 @@ def movie(request, movie_pk):
     serializer = MovieSerializer(movie)
     return Response(serializer.data)
 
-def review_list(request):
-    pass
+#review
+@api_view(['POST'])
+def new_review(request, movie_pk):
+    movie = get_object_or_404(Movie, movie_pk)
+    serializer = ReviewSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save(user=request.user)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-def review_detail(request):
-    pass
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def review_detail_or_update_or_delete(request, review_pk):
+    review = get_object_or_404(Review, pk=review_pk)
+
+    def review_detail():
+        serializer = ReviewSerializer(review)
+        return Response(serializer.data)
+
+    def update_review():
+        if request.user == review.user:
+            serializer = ReviewSerializer(instance=review, data=request.data)
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                return Response(serializer.data)
+
+    def delete_review():
+        if request.user == review.user:
+            review.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+
+    if request.method == 'GET':
+        return review_detail()
+    elif request.method == 'PUT':
+        if request.user == review.user:
+            return update_review()
+    elif request.method == 'DELETE':
+        if request.user == review.user:
+            return delete_review()
+
+
+
+
+
+
 
 def recommendation_question(request):
     pass

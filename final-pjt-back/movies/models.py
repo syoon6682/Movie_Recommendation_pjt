@@ -5,7 +5,7 @@ from accounts.models import User
 
 # Create your models here.
 
-
+# api 받아오는 부분
 class Genre(models.Model):
     name = models.CharField(max_length=50)
 
@@ -26,9 +26,8 @@ class Movie(models.Model):
 
 
 
-# 완성도 높인 모델
-
-class Article(models.Model):
+# community 기능
+class Review(models.Model):
     title = models.CharField(max_length=50)
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     content = models.TextField()
@@ -39,11 +38,11 @@ class Article(models.Model):
 
 
 class Comment(models.Model):
-    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    review = models.ForeignKey(Review, on_delete=models.CASCADE)
     content = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
-class Article_like(models.Model):
-    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+class Review_like(models.Model):
+    review = models.ForeignKey(Review, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
