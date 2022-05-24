@@ -8,7 +8,7 @@
       <img src="@/assets/gift.jpg" width="200">
     </a>
     <br>
-    <button>응모하기</button>
+    <button @click="savePopcorn">응모하기</button>
     <br>
     <br>
     <p>현재 응모자 수: </p>
@@ -20,10 +20,14 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'PopcornView',
+  methods: {
+    ...mapActions(['savePopcorn'])
+  },
 }
-
 </script>
 
 <style>

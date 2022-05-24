@@ -76,9 +76,9 @@ export default {
       );
   },
 
-  fetchMovie( { getters }, {moviePk}) {
+  fetchMovie( { getters }, {movieId}) {
     axios({
-      url: drf.movies.movie(moviePk),
+      url: drf.movies.movie(movieId),
       method: 'get',
       headers: {
         Authorization: 'Token ' + accounts.state.token

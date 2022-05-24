@@ -5,7 +5,7 @@
     <div class="card-body">
       <h3> {{movie.title}}</h3>
       <p class="card-text">{{movie.overview}}</p>
-      <router-link :to="{ name: 'moviedetail', params: {moviePk: movie.id}}">자세히 보기</router-link>
+      <router-link :to="{ name: 'moviedetail', params: { movieId: movie.id }}">자세히 보기</router-link>
     </div>
   </div>
 </div>
@@ -18,9 +18,6 @@ export default {
   props: {
     movie: Object,
   },
-  datas: {
-
-  }, 
 }
 </script>
 

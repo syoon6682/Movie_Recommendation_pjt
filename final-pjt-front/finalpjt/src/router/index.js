@@ -119,7 +119,7 @@ const routes = [
     component: ResultList
   },
   {
-    path: '/movie/:movie',
+    path: '/movie/:movieId',
     name: 'moviedetail',
     component: MovieDetail
   },
