@@ -50,11 +50,8 @@ export default {
   },
   methods: {
     ...mapActions(['getResults']),
-    moveToDetail() {
-    },
   },
   created() {
-    // const needs = {'answer1': 1, 'answer2': 2, 'answer3': 3, 'answer4': 4,}
     this.getResults(this.needs)
   },
   }

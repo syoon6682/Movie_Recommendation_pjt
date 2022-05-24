@@ -2,10 +2,11 @@ from django.http import JsonResponse
 from django.shortcuts import get_list_or_404, render, get_object_or_404
 from rest_framework.decorators import renderer_classes, api_view
 from rest_framework.response import Response
-from .models import Movie
+from .models import Movie, Genre
 from .serializers import MovieSerializer
 import requests
 from rest_framework.renderers import JSONRenderer
+from collections import OrderedDict
 
 @api_view(('GET',))
 def popular_movies(request):
@@ -63,10 +64,66 @@ def recommendation_question(request):
 @api_view(('GET',))
 # @renderer_classes((JSONRenderer))
 def recommendation_result(request):
-    print('test')
-    print(request.GET['answer1'])
-    movie = get_list_or_404(Movie)
-    serializer = MovieSerializer(movie, many=True)
+    movies = get_list_or_404(Movie)
+    genres = get_list_or_404(Genre)
+    answer = request.GET.getlist('answer[]')
+    answer1= answer[0]
+    answer2= answer[1]
+    answer3= answer[2]
+    answer4= answer[3]
+
+    data=[]
+    # print(type(serializer))
+    # print(serializer)
+    
+
+    if answer1 == '부모님':
+        for movie in movies:
+            if movie.genre_ids.filter(name = '로맨스').exists():
+                data.append(movie)
+                
+        pass
+    elif answer1 == '친구':
+        pass
+    elif answer1 == '연인':
+        pass
+    elif answer1 == '아이들':
+        pass
+
+
+    if answer2 == '집':
+        pass
+    elif answer2 == '캠핑장':
+        pass
+    elif answer2 == '영화관':
+        pass
+    elif answer2 == '호텔':
+        pass
+
+
+    if answer3 == '10대 미만':
+        pass
+    elif answer3 == '10대':
+        pass
+    elif answer3 == '20대~40대':
+        pass
+    elif answer3 == '50대~60대':
+        pass
+    elif answer3 == '70대 이상':
+        pass
+
+
+    if answer4 == '아주 행복':
+        pass
+    elif answer4 == '화남':
+        pass
+    elif answer4 == '우울':
+        pass
+    elif answer4 == '심심':
+        pass
+
+    serializer = MovieSerializer(data, many=True)
+
     return Response(serializer.data)
 
 

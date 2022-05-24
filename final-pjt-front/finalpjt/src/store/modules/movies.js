@@ -43,17 +43,17 @@ export default {
       console.log(res)
       commit('SET_ANSWER')
     },
+
+    // 이번 한정 getResult 개발만 진행
     getResults({commit, getters}){
-      // console.log(accounts.getters.authHeader(accounts.state))
+
       axios({
         url: drf.recommendation.recommendationresult(),
         method: 'get',
         headers: accounts.getters.authHeader(accounts.state),
         params:{
-          answer1: getters.answer1,
-          answer2: getters.answer2,
-          answer3: getters.answer3,
-          answer4: getters.answer4,
+          answer: getters.answer,
+
         }        
       })
         .then(res => {

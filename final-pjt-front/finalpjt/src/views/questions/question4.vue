@@ -46,6 +46,7 @@ export default {
     saveAnswer4(){
       const pick = this.picked
       localStorage.setItem('answer4', pick)
+      console.log(localStorage.getItem('answer4'))
       this.$store.getters.answer.push(pick)
       router.push({name: 'result'})
   } 
