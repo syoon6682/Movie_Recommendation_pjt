@@ -4,6 +4,8 @@
 // import router from '@/router'
 import router from '@/router'
 import accounts from '@/store/modules/accounts'
+// import _ from 'lodash'
+
 
 
 export default {
@@ -52,7 +54,7 @@ export default {
 
 
     // 이벤트 마감 및 당첨자 반환
-    resetList({commit}) {
+    resetList({commit, getters}) {
       localStorage.setItem('popcorn', JSON.stringify([]))
       const applicants = JSON.parse(localStorage.getItem('popcorn')).length
       console.log(applicants)
@@ -61,7 +63,8 @@ export default {
       // 이벤트 화면 돌아가기
       router.push({
         name: 'popcorn',
-      }) 
+      })
+      commit('SET_WINNER', getters.winner) 
     },
 
     // 페이지 들어가자마자 display하기 위한 method
@@ -73,7 +76,22 @@ export default {
 
     fetchList({commit, getters}) {
       const winner = JSON.parse(localStorage.getItem('popcorn'))
+
+      // random으로 20% 인원 무작위 선발 로직
+      let lucky = parseInt(winner.length * 0.2) 
       commit('SET_WINNER', winner )
+      let visited = []
+      let result = []
+      for(let i=0; i < lucky; ) {
+        let num = Math.floor(Math.random() * 5)
+        if (visited.indexOf(num) === -1){
+          visited.push(num)
+          result.push(winner[num]) 
+          i++
+        }
+      }
+      
+      commit('SET_WINNER', result)
       console.log(getters.winner)
     },
 
