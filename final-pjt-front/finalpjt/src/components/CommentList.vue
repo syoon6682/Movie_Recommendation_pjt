@@ -2,14 +2,15 @@
   <div class="comment-list">
     
     <ul>
+      <li>
       <comment-item 
         v-for="comment in comments" 
-        :comment="comment" 
-        :key="comment.pk">
+        :comment="comment" :key="comment.pk">
       </comment-item>        
+      </li>
     </ul>
 
-    <comment-form :moviePk="moviePk"></comment-form>
+    <comment-form :moviePk="this.moviePk"></comment-form>
   </div>
 </template>
 
@@ -30,7 +31,9 @@ export default {
       moviePk: this.$store.getters.recommMovie.id
     }
   },
-  props: { comments: Array },
+  props: { 
+    comments: Array 
+    },
 }
 </script>
 

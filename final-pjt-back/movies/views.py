@@ -42,8 +42,8 @@ def new_review(request, movie_pk):
     serializer = ReviewSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
         serializer.save(movie=movie, user=request.user) 
-        reviews = movie.reviews.all()
-        serializer = ReviewSerializer(reviews, many=True)
+        # reviews = movie.reviews.all()
+        # serializer = ReviewSerializer(reviews, many=True)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 @api_view(['GET'])
@@ -54,7 +54,6 @@ def review_list(request, movie_pk):
 
 @api_view(['GET'])
 def review_detail(request, movie_pk, review_pk):
-    print(review_pk)
     review = get_object_or_404(Review, id=review_pk)
     serializer = ReviewListSerializer(review)
     return Response(serializer.data)
@@ -93,28 +92,28 @@ def like_review(request, review_pk):
         return Response(serializer.data)
 
 
+# @api_view(['POST'])
+# def create_comment(request, review_pk):
+#     user = request.user
+#     review = get_object_or_404(Review, pk=review_pk)
+    
+#     serializer = CommentSerializer(data=request.data)
+#     print('hi')
+#     if serializer.is_valid(raise_exception=True):
+#         serializer.save(review=review, user=user)
+
+#         # 기존 serializer 가 return 되면, 단일 comment 만 응답으로 받게됨.
+#         # 사용자가 댓글을 입력하는 사이에 업데이트된 comment 확인 불가 => 업데이트된 전체 목록 return 
+#         comments = review.comments.all()
+#         serializer = CommentSerializer(comments, many=True)
+#         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
 @api_view(['POST'])
-def create_comment(request, review_pk):
+def new_comment(request, movie_pk, review_pk):
     user = request.user
     review = get_object_or_404(Review, pk=review_pk)
-    
-    serializer = CommentSerializer(data=request.data)
-    print('hi')
-    if serializer.is_valid(raise_exception=True):
-        serializer.save(review=review, user=user)
-
-        # 기존 serializer 가 return 되면, 단일 comment 만 응답으로 받게됨.
-        # 사용자가 댓글을 입력하는 사이에 업데이트된 comment 확인 불가 => 업데이트된 전체 목록 return 
-        comments = review.comments.all()
-        serializer = CommentSerializer(comments, many=True)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-
-@api_view(['POST'])
-def new_comment(request, article_pk):
-    user = request.user
-    review = get_object_or_404(Review, pk=article_pk)
-    
+    # movie = get_object_or_404(Movie, pk=movie_pk)
     serializer = CommentSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
         serializer.save(review=review, user=user)

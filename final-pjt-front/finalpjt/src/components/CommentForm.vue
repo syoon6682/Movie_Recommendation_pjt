@@ -27,7 +27,6 @@ export default {
   methods: {
     ...mapActions(['createComment']),
     onSubmit() {
-      console.log(this)
       this.createComment({ reviewPk: this.review.pk, moviePk: this.moviePk, content: this.content, })
       this.content = ''
     }

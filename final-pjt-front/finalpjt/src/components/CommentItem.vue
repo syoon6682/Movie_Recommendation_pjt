@@ -26,7 +26,9 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'CommentItem',
-  props: { comment: Object },
+  props: { 
+    comment: Object
+     },
   data() {
     return {
       isEditing: false,
