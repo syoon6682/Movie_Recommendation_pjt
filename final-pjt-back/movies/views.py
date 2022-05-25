@@ -2,8 +2,8 @@ from django.http import JsonResponse
 from django.shortcuts import get_list_or_404, render, get_object_or_404
 from rest_framework.decorators import renderer_classes, api_view
 from rest_framework.response import Response
-from .models import Movie, Review
-from .serializers import MovieSerializer, ReviewSerializer, ReviewListSerializer
+from .models import Movie, Review, Comment, Like
+from .serializers import MovieSerializer, ReviewSerializer, ReviewListSerializer, CommentSerializer
 import requests
 from rest_framework.renderers import JSONRenderer
 from collections import OrderedDict
@@ -53,9 +53,10 @@ def review_list(request, movie_pk):
     return Response(serializer.data)
 
 @api_view(['GET'])
-def review_detail(request, review_pk):
-    review = get_object_or_404(Review, pk=review_pk)
-    serializer = ReviewSerializer(review)
+def review_detail(request, movie_pk, review_pk):
+    print(review_pk)
+    review = get_object_or_404(Review, id=review_pk)
+    serializer = ReviewListSerializer(review)
     return Response(serializer.data)
 
 @api_view(['PUT'])
@@ -67,14 +68,68 @@ def update_review(request, review_pk):
             serializer.save()
             return Response(serializer.data)
 
-            
-
 @api_view(['DELETE'])
 def delete_review(request, review_pk):
     review = get_object_or_404(Review, pk=review_pk)
     if request.user == review.user:
         review.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+
+
+# Comment & Like
+@api_view(['POST'])
+def like_review(request, review_pk):
+    review = get_object_or_404(Review, pk=review_pk)
+    user = request.user
+    if review.like_users.filter(pk=user.pk).exists():
+        review.like_users.remove(user)
+        serializer = ReviewSerializer(review)
+        return Response(serializer.data)
+    else:
+        review.like_users.add(user)
+        serializer = ReviewSerializer(review)
+        return Response(serializer.data)
+
+
+@api_view(['POST'])
+def create_comment(request, review_pk):
+    user = request.user
+    review = get_object_or_404(Review, pk=review_pk)
+    
+    serializer = CommentSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save(review=review, user=user)
+
+        # 기존 serializer 가 return 되면, 단일 comment 만 응답으로 받게됨.
+        # 사용자가 댓글을 입력하는 사이에 업데이트된 comment 확인 불가 => 업데이트된 전체 목록 return 
+        comments = review.comments.all()
+        serializer = CommentSerializer(comments, many=True)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+@api_view(['PUT'])
+def update_comment(request, review_pk, comment_pk):
+    review = get_object_or_404(Review, pk=review_pk)
+    comment = get_object_or_404(Comment, pk=comment_pk)
+    if request.user == comment.user:
+        serializer = CommentSerializer(instance=comment, data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            comments = review.comments.all()
+            serializer = CommentSerializer(comments, many=True)
+            return Response(serializer.data)
+
+@api_view(['DELETE'])
+def delete_comment(request, review_pk, comment_pk):
+    review = get_object_or_404(Review, pk=review_pk)
+    comment = get_object_or_404(Comment, pk=comment_pk)
+    if request.user == comment.user:
+        comment.delete()
+        comments = review.comments.all()
+        serializer = CommentSerializer(comments, many=True)
+        return Response(serializer.data)
 
 
 

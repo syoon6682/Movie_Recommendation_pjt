@@ -40,12 +40,12 @@ class Review(models.Model):
     like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="like_reviews")
 
 
-# class Comment(models.Model):
-#     review = models.ForeignKey(Review, on_delete=models.CASCADE, related_name='comments')
-#     content = models.TextField()
-#     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments')
+class Comment(models.Model):
+    review = models.ForeignKey(Review, on_delete=models.CASCADE, related_name='comments')
+    content = models.TextField()
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments')
 
 
-# class Like(models.Model):
-#     review = models.ForeignKey(Review, on_delete=models.CASCADE, )
-#     user = models.ForeignKey(User, on_delete=models.CASCADE, )
+class Like(models.Model):
+    review = models.ForeignKey(Review, on_delete=models.CASCADE, )
+    user = models.ForeignKey(User, on_delete=models.CASCADE, )

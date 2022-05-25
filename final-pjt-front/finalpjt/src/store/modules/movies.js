@@ -74,9 +74,9 @@ export default {
       .catch(err => console.error(err.response))
   },
 
-  fetchReview({ commit, getters }, reviewPk) {
+  fetchReview({ commit, getters }, {movieId, reviewId}) {
     axios({
-      url: drf.movies.review(reviewPk),
+      url: drf.movies.reviewdetail(movieId, reviewId),
       method: 'get',
       headers: getters.authHeader,
     })
@@ -84,7 +84,7 @@ export default {
       .catch(err => {
         console.error(err.response)
         if (err.response.status === 404) {
-          router.push({ name: 'NotFound404' })
+          router.push({ name: 'notfound404' })
         }
       })
   },
@@ -104,8 +104,8 @@ export default {
         console.log(res)
         commit('SET_REVIEW', res.data)
         router.push({
-          name: 'review',
-          params: { reviewPk: getters.review.pk, moviePk: getters.movie.pk }
+          name: 'reviewdetail',
+          params: { reviewId: getters.review.pk, movieId: getters.recommMovie.id }
         })
       })
   },
@@ -150,6 +150,7 @@ export default {
       .then(res => commit('SET_REVIEW', res.data))
       .catch(err => console.error(err.response))
   },
+
 
 
     // recommendations - answers

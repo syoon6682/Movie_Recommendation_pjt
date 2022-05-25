@@ -6,12 +6,10 @@
         create
       </router-link>
       <ul>
-        <li v-for="review in reviews" :key="review.id">
-        <!-- <router-link 
-        :to="{ name: 'reviewdetail', params: {movieId: movie.id, reviewId: review.id} }">
-
-        </router-link> -->
-        {{ review.title }}
+        <li v-for="review in reviews" :key="review.pk">
+          <router-link :to="{ name: 'reviewdetail', params: {movieId: recommMovie.id, reviewId: review.pk} }">
+          {{ review.title }}
+          </router-link>
         </li>
       </ul>
   </div>
@@ -29,7 +27,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['reviews'])
+    ...mapGetters(['reviews', 'recommMovie'])
   },
   methods: {
     ...mapActions(['fetchReviews'])
