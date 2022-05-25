@@ -118,9 +118,9 @@ export default {
       })
   },
 
-  updateReview({ commit, getters }, { pk, title, content}) {
+  updateReview({ commit, getters }, { moviePk, reviewPk, title, content}) {
     axios({
-      url: drf.movies.review(pk),
+      url: drf.movies.updatereview(moviePk, reviewPk),
       method: 'put',
       data: { title, content },
       headers: getters.authHeader,
@@ -128,22 +128,26 @@ export default {
       .then(res => {
         commit('SET_REVIEW', res.data)
         router.push({
-          name: 'review',
-          params: { reviewPk: getters.review.pk }
+          name: 'reviewdetail',
+          params: { reviewId: reviewPk, movieId: moviePk }
         })
       })
   },
 
-  deleteReview({ commit, getters }, reviewPk) {
+  deleteReview({ commit, getters }, { movieId, reviewId }) {
     if (confirm('정말 삭제하시겠습니까?')) {
       axios({
-        url: drf.movies.review(reviewPk),
+        url: drf.movies.deletereview(reviewId),
         method: 'delete',
         headers: getters.authHeader,
       })
         .then(() => {
           commit('SET_REVIEW', {})
-          router.push({ name: 'reviews' })
+          router.push(
+            { name: 'moviedetail',
+              params: {movieId}
+            }
+          )
         })
         .catch(err => console.error(err.response))
     }

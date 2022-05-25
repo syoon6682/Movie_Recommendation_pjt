@@ -27,6 +27,8 @@ export default {
     review: moviePk => HOST + MOVIES + `${moviePk}/` + REVIEW,
     newreview: (moviePk) => HOST + MOVIES + `${moviePk}` + '/' + REVIEW + 'new/',
     reviewdetail: (moviePk, reviewPk) => HOST + MOVIES + `${moviePk}/` + REVIEW + `${reviewPk}/`,
+    updatereview: (moviePk, reviewPk) => HOST + MOVIES + `${moviePk}/` + REVIEW + `${reviewPk}/` + 'edit/',
+    deletereview: (reviewPk) => HOST + MOVIES + REVIEW + `${reviewPk}/` + 'delete/',
     likeReview: (moviePk, reviewPk) => HOST + MOVIES + `${moviePk}/` + REVIEW + `${reviewPk}/` + 'like/',
     countReview: (moviePk, reviewPk) => HOST + MOVIES + `${moviePk}/` + REVIEW + `${reviewPk}/` + 'count/',
 

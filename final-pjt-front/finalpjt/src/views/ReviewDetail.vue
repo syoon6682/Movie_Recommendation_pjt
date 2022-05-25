@@ -3,6 +3,15 @@
     <h1>REVIEW DETAIL</h1>
     <h3>{{ review.title }}</h3>
     <p>{{ review.content }}</p>
+   
+
+    <div v-if="isAuthor">
+      <router-link :to="{ name: 'reviewedit', params: { reviewId } }">
+        <button>Edit</button>
+      </router-link>
+
+      <button @click="deleteReview({ movieId, reviewId })">Delete</button>
+    </div>
     <hr>
 
     <div>
@@ -34,7 +43,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['review', 'recommMovie', 'comments']),
+    ...mapGetters(['review', 'recommMovie', 'comments', 'isAuthor']),
     likeCount() {
       return this.review.like_users?.length
     }
@@ -49,6 +58,7 @@ export default {
   created() { 
     this.fetchReview({movieId: this.movieId, reviewId: this.reviewId})
     this.fetchComments({movieId: this.movieId, reviewId: this.reviewId})
+    console.log(this.movieId, this.reviewId)
   },
 }
 </script>

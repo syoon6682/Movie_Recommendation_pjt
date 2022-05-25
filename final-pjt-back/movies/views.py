@@ -70,7 +70,7 @@ def review_detail(request, movie_pk, review_pk):
     return Response(serializer.data)
 
 @api_view(['PUT'])
-def update_review(request, review_pk):
+def update_review(request, movie_pk, review_pk):
     review = get_object_or_404(Review, pk=review_pk)
     if request.user == review.user:
         serializer = ReviewSerializer(instance=review, data=request.data)
@@ -80,6 +80,7 @@ def update_review(request, review_pk):
 
 @api_view(['DELETE'])
 def delete_review(request, review_pk):
+    print(review_pk)
     review = get_object_or_404(Review, pk=review_pk)
     if request.user == review.user:
         review.delete()
