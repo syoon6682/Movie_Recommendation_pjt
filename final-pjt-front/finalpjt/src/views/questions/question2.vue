@@ -15,8 +15,8 @@
           <input v-model="picked" class="radiobutton" type="radio" id="lover" value="영화관" >
           <label for="lover">영화관</label>
           <br>
-          <input v-model="picked" class="radiobutton" type="radio" id="kids" value="바닷가">
-          <label for="beach">바닷가</label>
+          <input v-model="picked" class="radiobutton" type="radio" id="hotel" value="호텔">
+          <label for="hotel">호텔</label>
           <br>
           <br>
           <span> {{ picked }} 에서 보는 영화 </span>

@@ -123,28 +123,39 @@ def recommendation_result(request):
 
     if answer1 == '부모님':
         for movie in movies:
-            if not movie.genre_ids.filter(name = '애니메이션').exists() and movie.genre_ids.filter(name = '코미디').exists() :
+            if (not movie.adult and
+                not movie.genre_ids.filter(name = '애니메이션').exists() and
+                not movie.genre_ids.filter(name = '공포').exists()):
                 data.append(movie)
+    
     elif answer1 == '친구':
         for movie in movies:
-            if movie.genre_ids.filter(name = '애니메이션').exists():
-                data.append(movie)
+            data.append(movie)
+    
     elif answer1 == '연인':
         for movie in movies:
-            if movie.genre_ids.filter(name = '로맨스').exists() and movie.genre_ids.filter(name = '코미디').exists() :
+            if (movie.genre_ids.filter(name = '로맨스').exists() or 
+                movie.genre_ids.filter(name = '코미디').exists()):
                 data.append(movie)
+    
     elif answer1 == '아이들':
         for movie in movies:
-            if movie.genre_ids.filter(name = '애니메이션').exists() or movie.genre_ids.filter(name = 'SF').exists() :
+            if (not movie.genre_ids.filter(name = '다큐멘터리').exists() and 
+                not movie.genre_ids.filter(name = '범죄').exists() and 
+                not movie.adult and 
+                not movie.genre_ids.filter(name = '공포').exists()):
                 data.append(movie)
 
 
     if answer2 == '집':
         pass
     elif answer2 == '캠핑장':
-        pass
+        for movie in data:
+            if movie.adult:
+                data.remove(movie)
     elif answer2 == '영화관':
-        pass
+        for movie in data:
+            pass
     elif answer2 == '호텔':
         pass
 
@@ -173,6 +184,7 @@ def recommendation_result(request):
     serializer = MovieSerializer(data, many=True)
 
     return Response(serializer.data)
+
 
 
 def event_list(request):
