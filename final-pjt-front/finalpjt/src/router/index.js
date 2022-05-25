@@ -12,6 +12,7 @@ import ProfileView from '@/views/ProfileView.vue'
 // event
 import EventList from '@/views/EventList.vue'
 import PopcornView from '@/views/PopcornView.vue'
+import PopcornResult from '@/views/PopcornResult.vue'
 import ReviewEvent from '@/views/ReviewEvent.vue'
 import MovieMaking from '@/views/MovieMaking.vue'
 // import QuestionList from '@/views/QuestionList.vue'
@@ -78,6 +79,11 @@ const routes = [
     path: '/event/popcorn',
     name: 'popcorn',
     component: PopcornView
+  },
+  {
+    path: '/event/popcorn/result',
+    name: 'popcornresult',
+    component: PopcornResult
   },
   {
     path: '/event/review',
