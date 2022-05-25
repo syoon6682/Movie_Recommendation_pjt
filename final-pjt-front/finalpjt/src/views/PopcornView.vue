@@ -18,6 +18,7 @@
     <br><br><br>
     <h3>당첨을 축하드립니다</h3>
     <p>이번 당첨자:</p>
+    <p>{{winner}}</p>
 
   </div>
 </template>
@@ -38,12 +39,13 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['popcorn', 'applicants', 'currentUser', 'profile',])
+    ...mapGetters(['popcorn', 'applicants', 'currentUser', 'profile', 'winner'])
   },
   created() {
     const payload = { username: this.$store.getters.currentUser.username}
     this.displayPopcorn()
     this.fetchProfile(payload)
+    console.log(this)
   },
 }
 </script>
