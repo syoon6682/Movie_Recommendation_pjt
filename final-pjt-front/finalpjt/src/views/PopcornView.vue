@@ -15,7 +15,7 @@
     <p>현재 응모자 수: {{applicants}}</p>
     <br><br><br>
     <h3>당첨을 축하드립니다</h3>
-    <p>당첨자:</p>
+    <p>이번 당첨자:</p>
 
   </div>
 </template>

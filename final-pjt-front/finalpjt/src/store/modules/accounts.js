@@ -36,12 +36,6 @@ export default {
       localStorage.setItem('token', token)
     },
 
-    changeMileage ({commit}, mileage) {
-
-      commit('SET_MILEAGE', mileage)
-      localStorage.setItem('mileage', mileage)
-    },
-
     removeToken({ commit }) {
       commit('SET_TOKEN', '')
       localStorage.setItem('token', '')
@@ -149,15 +143,29 @@ export default {
           method: 'get',
           headers: getters.authHeader,
         })
-        .then(()=> {
-          let mileage = getters.mileage
+        .then(res => {
+          console.log(res)
+          let mileage = res.data.mileage
           mileage = parseInt(mileage)
           mileage += 1000
-          console.log(mileage)
-          dispatch('changeMileage', mileage)
-        })
-        
-      }
+          dispatch('changeMileage', {username: username, mileage: mileage})
+        })      
+      },
+
+      // Localstorage를 활용한 mileage 충전
+    changeMileage ({getters}, {username, mileage}) {
+      console.log(mileage)
+      axios({
+        url: drf.accounts.profileUpdate(username),
+          method: 'put',
+          headers: getters.authHeader,
+          data: {
+            username: username,
+            mileage: mileage,
+          }
+      })
+      .then(res => console.log(res))
+    },
 
       // addMileage({getters, commit,}, {username}) {
       //   if (getters.isLoggedIn) {

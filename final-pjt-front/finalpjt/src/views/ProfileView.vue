@@ -1,9 +1,10 @@
 <template>
 <div>
   <h1>{{profile.username}}님 안녕하세요!</h1>
+  <p>{{profile.mileage}}</p>
   
   <div>
-    <p>내 마일리지: {{ this.$store.state.accounts.mileage }}</p>
+    <p>내 마일리지: {{ profile.mileage }}</p>
     <button @click="addMileage(profile)" class="btn btn-danger">Charge</button>
     
   </div>

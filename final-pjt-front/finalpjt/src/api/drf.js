@@ -15,7 +15,7 @@ export default {
     currentUserInfo: () => HOST + ACCOUNTS + 'user/',
     // username으로 프로필 제공
     profile: username => HOST + ACCOUNTS + 'profile/' + username +'/',
-    profileupdate: username => HOST + ACCOUNTS + 'profile/' + username + '/update/',
+    profileUpdate: username => HOST + ACCOUNTS + 'profile/' + username + '/update/',
     mileage: username => HOST + ACCOUNTS + 'mileage/' + username + '/'
   },
   movies: {

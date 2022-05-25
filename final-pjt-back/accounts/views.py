@@ -15,15 +15,17 @@ def profile(request, username):
     return Response(serializer.data)
 
 
-# @api_view(['POST'])
-# def profileupdate(request, username):
+@api_view(['PUT'])
+def profileupdate(request, username):
+    user = get_object_or_404(User, username=username)
+    serializer = ProfileSerializer(user, data=request.data)
+    print(request.data)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save()
+        return Response(serializer.data)
+
+# def add_mileage(request, username):
 #     user = get_object_or_404(User, username=username)
+#     user.mileage = request.user.mileage
 #     serializer = ProfileSerializer(user)
 #     return Response(serializer.data)
-
-def add_mileage(request, username):
-    user = get_object_or_404(User, username=username)
-
-    user.mileage = request.user.mileage
-    serializer = ProfileSerializer(user)
-    return Response(serializer.data)

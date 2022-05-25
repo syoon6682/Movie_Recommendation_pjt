@@ -14,6 +14,7 @@ export default {
   getters: {
     popcorn:state => state.popcorn,
     applicants: state => state.applicants,
+    winner: state => state.winner
   },
 
   mutations: {
@@ -22,31 +23,39 @@ export default {
     // }
     SET_POPCORN: (state, popcorn) => state.popcorn = popcorn,
     SET_APPLICANTS: (state, applicants) => state.applicants = applicants,
+    SET_WINNER: (state, winner) => state.winner = winner
   },
 
   actions: {
-    savePopcorn(){
+
+    // 신청자 localStorage에 저장
+    savePopcorn({commit}){
       const username = accounts.state.currentUser.username
       // var test = this.getters.popcorn
       var list = JSON.parse(localStorage.getItem('popcorn'))
       list.push(username)
       // console.log(list)
       localStorage.setItem('popcorn', JSON.stringify(list))
-      this.displayPopcorn()
+      const applicants = JSON.parse(localStorage.getItem('popcorn')).length
+      console.log(applicants)
+      commit('SET_APPLICANTS', applicants)
       // console.log(username)
       // console.log(localStorage.getItem('popcorn'))
     },
-    resetList() {
+
+    // 이벤트 마감 및 당첨자 반환
+    resetList({commit}) {
       localStorage.setItem('popcorn', JSON.stringify([]))
-      this.displayPopcorn()
+      const applicants = JSON.parse(localStorage.getItem('popcorn')).length
+      console.log(applicants)
+      commit('SET_APPLICANTS', applicants)
     },
 
     displayPopcorn({commit}) {
-      let applicants = JSON.parse(localStorage.getItem('popcorn')).length
+      const applicants = JSON.parse(localStorage.getItem('popcorn')).length
       console.log(applicants)
       commit('SET_APPLICANTS', applicants)
-      console.log('test1')
-    }
+    },
 
   },
 }

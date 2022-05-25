@@ -75,8 +75,8 @@
     margin-right: 8px;
   }
 
-  form {
+  /* form {
     
-  }
+  } */
 
 </style>

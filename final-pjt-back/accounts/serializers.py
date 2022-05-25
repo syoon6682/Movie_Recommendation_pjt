@@ -9,7 +9,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ('pk', 'username', 'email', 'mileage')
+        fields = ('pk', 'username', 'mileage')
 
 
 # class UserSerializer(UserDetailSerializer):
