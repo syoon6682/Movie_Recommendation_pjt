@@ -45,7 +45,7 @@ export default {
       let applicants = JSON.parse(localStorage.getItem('popcorn')).length
       console.log(applicants)
       commit('SET_APPLICANTS', applicants)
-      console.log('test')
+      console.log('test1')
     }
 
   },
