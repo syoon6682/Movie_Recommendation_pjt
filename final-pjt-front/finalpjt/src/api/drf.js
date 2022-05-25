@@ -22,15 +22,23 @@ export default {
     // /movies/1/
     movieList: () => HOST + MOVIES,
     movie: moviePk => HOST +  MOVIES + `${moviePk}/`,
+    
+    // reviews
     review: moviePk => HOST + MOVIES + `${moviePk}/` + REVIEW,
     newreview: (moviePk) => HOST + MOVIES + `${moviePk}` + '/' + REVIEW + 'new/',
     reviewdetail: (moviePk, reviewPk) => HOST + MOVIES + `${moviePk}/` + REVIEW + `${reviewPk}/`,
     search: (search) => HOST + MOVIES + 'search/' + `${search}`,
+
+    // comments
+    comments: (moviePk, reviewPk) => HOST + MOVIES + `${moviePk}/` + REVIEW + `${reviewPk}/` + 'comments/',
+    comment: (moviePk, reviewPk, commentPk) => HOST + MOVIES + `${moviePk}/` + REVIEW + `${reviewPk}/` + 'comments/' + `${commentPk}/`,
   },
+
   recommendation: {
     recommendationquestion: () => HOST + MOVIES + RECOMMENDATION + 'question/',
     recommendationresult: () => HOST + MOVIES + RECOMMENDATION + 'result/'
   },
+  
   event : {
     event: () => HOST + MOVIES + EVENT,
     popcorn: () => HOST + MOVIES + EVENT + 'popcorn/',

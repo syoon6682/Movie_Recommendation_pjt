@@ -47,6 +47,8 @@ export default {
     SET_REVIEWS: (state, reviews) => state.reviews = reviews,
     SET_REVIEW: (state, review) => state.review = review,
 
+    SET_REVIEW_COMMENTS: (state, comments) => (state.review.comments = comments),
+
     // answer
     SET_ANSWER: (state, answer) => state.answer=answer, 
     SET_ANSWER1: (state, answer1) => state.answer1=answer1, 
@@ -153,6 +155,57 @@ export default {
 
 
 
+  // comment
+  createComment({ commit, getters }, { moviePk, reviewPk, content }) {
+    const comment = { content }
+
+    axios({
+      url: drf.movies.comments(moviePk, reviewPk),
+      method: 'post',
+      data: comment,
+      headers: getters.authHeader,
+    })
+      .then(res => {
+        commit('SET_REVIEW_COMMENTS', res.data)
+      })
+      .catch(err => console.error(err.response))
+  },
+
+  updateComment({ commit, getters }, { moviePk, reviewPk, commentPk, content }) {
+    const comment = { content }
+
+    axios({
+      url: drf.movies.comment(moviePk, reviewPk, commentPk),
+      method: 'put',
+      data: comment,
+      headers: getters.authHeader,
+    })
+      .then(res => {
+        commit('SET_REVIEW_COMMENTS', res.data)
+      })
+      .catch(err => console.error(err.response))
+  },
+
+  deleteComment({ commit, getters }, { moviePk, reviewPk, commentPk }) {
+      if (confirm('정말 삭제하시겠습니까?')) {
+        axios({
+          url: drf.movies.comment(moviePk, reviewPk, commentPk),
+          method: 'delete',
+          data: {},
+          headers: getters.authHeader,
+        })
+          .then(res => {
+            commit('SET_REVIEW_COMMENTS', res.data)
+          })
+          .catch(err => console.error(err.response))
+      }
+    },
+
+
+
+
+
+
     // recommendations - answers
     saveAnswer({commit}, res){
       console.log(res)
@@ -214,14 +267,14 @@ export default {
   // }
   
 
-  // fetchArticle({ commit, getters }, articlePk) {
+  // fetchreview({ commit, getters }, reviewPk) {
 
   //   axios({
-  //     url: drf.articles.article(articlePk),
+  //     url: drf.reviews.review(reviewPk),
   //     method: 'get',
   //     headers: getters.authHeader,
   //   })
-  //     .then(res => commit('SET_ARTICLE', res.data))
+  //     .then(res => commit('SET_review', res.data))
   //     .catch(err => {
   //       console.error(err.response)
   //       if (err.response.status === 404) {

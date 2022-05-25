@@ -10,7 +10,7 @@
       <textarea v-model="newReview.content" type="text" id="content"></textarea>
     </div>
     <div>
-      <button @click="onSubmit">{{ action }}</button>
+      <button>{{ action }}</button>
     </div>
   </form>
 </template>
