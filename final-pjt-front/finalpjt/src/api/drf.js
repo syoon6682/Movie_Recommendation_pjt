@@ -27,11 +27,14 @@ export default {
     review: moviePk => HOST + MOVIES + `${moviePk}/` + REVIEW,
     newreview: (moviePk) => HOST + MOVIES + `${moviePk}` + '/' + REVIEW + 'new/',
     reviewdetail: (moviePk, reviewPk) => HOST + MOVIES + `${moviePk}/` + REVIEW + `${reviewPk}/`,
+    likeReview: (moviePk, reviewPk) => HOST + MOVIES + `${moviePk}/` + REVIEW + `${reviewPk}/` + 'like/',
+    countReview: (moviePk, reviewPk) => HOST + MOVIES + `${moviePk}/` + REVIEW + `${reviewPk}/` + 'count/',
+
     search: (search) => HOST + MOVIES + 'search/' + `${search}`,
 
     // comments
     comments: (moviePk, reviewPk) => HOST + MOVIES + `${moviePk}/` + REVIEW + `${reviewPk}/` + 'comments/',
-    comment: (moviePk, reviewPk, commentPk) => HOST + MOVIES + `${moviePk}/` + REVIEW + `${reviewPk}/` + 'comments/' + `${commentPk}/`,
+    comment: (moviePk, reviewPk, commentPk) => HOST + MOVIES + `${moviePk}/` + REVIEW + `${reviewPk}/` + 'comment/' + `${commentPk}/`,
   },
 
   recommendation: {

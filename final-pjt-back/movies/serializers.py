@@ -25,6 +25,8 @@ class MovieItemSerializer(serializers.ModelSerializer):
 
 
 # Comment / Like
+
+
 class CommentSerializer(serializers.ModelSerializer):
     class UserSerializer(serializers.ModelSerializer):
         class Meta:
@@ -32,7 +34,7 @@ class CommentSerializer(serializers.ModelSerializer):
             fields = ('pk', 'username')
 
     user = UserSerializer(read_only=True)
-
+    print(user)
     class Meta:
         model = Comment
         fields = ('pk', 'user', 'content', 'review',)
@@ -56,9 +58,18 @@ class LikeSerializer(serializers.ModelSerializer):
 
 # review
 class ReviewListSerializer(serializers.ModelSerializer):
+    class UserSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = User
+            fields = ('pk', 'username')
+
+    user = UserSerializer(read_only=True)
+    # comment_count = serializers.IntegerField()
+    # like_count = serializers.IntegerField()
+
     class Meta:
         model = Review
-        fields = ('pk', 'title', 'content' )
+        fields = ('pk', 'user', 'title', 'content')
 
 class ReviewSerializer(serializers.ModelSerializer):
     class UserSerializer(serializers.ModelSerializer):
@@ -76,3 +87,14 @@ class ReviewSerializer(serializers.ModelSerializer):
         fields = ('pk', 'title',  'content', 'movie', 'user', 'comments', 'like_users')
 
 
+class CommentListSerializer(serializers.ModelSerializer):
+    class UserSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = User
+            fields = ('pk', 'username')
+
+    user = UserSerializer(read_only=True)
+
+    class Meta:
+        model = Comment
+        fields = ('pk', 'user', 'content', 'review_id')

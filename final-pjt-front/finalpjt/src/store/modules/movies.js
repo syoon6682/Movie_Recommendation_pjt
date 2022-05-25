@@ -8,7 +8,9 @@ export default {
 
   state: {
     reviews: [],
-    review: {},
+    review: { },
+
+    comments: [],
 
     answer: [],
     answer1: localStorage.getItem('answer1'),
@@ -29,6 +31,7 @@ export default {
     },
     isReview: state => !_.isEmpty(state.review),
  
+    comments: state => state.comments,
 
     // recommendation 대답들
     answer:state => state.answer,
@@ -47,8 +50,8 @@ export default {
     SET_REVIEWS: (state, reviews) => state.reviews = reviews,
     SET_REVIEW: (state, review) => state.review = review,
 
-    SET_REVIEW_COMMENTS: (state, comments) => (state.review.comments = comments),
-
+    SET_REVIEW_COMMENTS: (state, comments) => (state.comments = comments),
+    
     // answer
     SET_ANSWER: (state, answer) => state.answer=answer, 
     SET_ANSWER1: (state, answer1) => state.answer1=answer1, 
@@ -204,13 +207,16 @@ export default {
       }
     },
 
-    fetchComment({ commit, getters }, {movieId, reviewId}) {
+    fetchComments({ commit, getters }, {movieId, reviewId}) {
       axios({
-        url: drf.movies.reviewdetail(movieId, reviewId),
+        url: drf.movies.comments(movieId, reviewId),
         method: 'get',
         headers: getters.authHeader,
       })
-        .then(res => commit('SET_REVIEW', res.data))
+        .then(res => {
+          console.log(res.data)
+          commit('SET_REVIEW_COMMENTS', res.data)
+        })
         .catch(err => {
           console.error(err.response)
           if (err.response.status === 404) {

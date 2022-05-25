@@ -319,3 +319,5 @@ $RECYCLE.BIN/
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,django,windows,python,vue
 
 venv/
+
+*.sqlite3
