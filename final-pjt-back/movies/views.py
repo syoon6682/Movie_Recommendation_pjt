@@ -3,7 +3,7 @@ from django.shortcuts import get_list_or_404, render, get_object_or_404
 from rest_framework.decorators import renderer_classes, api_view
 from rest_framework.response import Response
 from .models import Movie, Review
-from .serializers import MovieSerializer, ReviewSerializer
+from .serializers import MovieSerializer, ReviewSerializer, ReviewListSerializer
 import requests
 from rest_framework.renderers import JSONRenderer
 from collections import OrderedDict
@@ -34,16 +34,23 @@ def movie(request, movie_pk):
     serializer = MovieSerializer(movie)
     return Response(serializer.data)
 
+
 #review
 @api_view(['POST'])
 def new_review(request, movie_pk):
-    movie = get_object_or_404(Movie, movie_pk)
+    movie = get_object_or_404(Movie, pk=movie_pk)
     serializer = ReviewSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
-        serializer.save(user=request.user)
+        serializer.save(movie=movie, user=request.user) 
+        reviews = movie.reviews.all()
+        serializer = ReviewSerializer(reviews, many=True)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-
+@api_view(['GET'])
+def review_list(request, movie_pk):
+    reviews = get_list_or_404(Review, movie_id=movie_pk)
+    serializer = ReviewListSerializer(reviews, many=True)
+    return Response(serializer.data)
 
 @api_view(['GET'])
 def review_detail(request, review_pk):
@@ -59,6 +66,8 @@ def update_review(request, review_pk):
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data)
+
+            
 
 @api_view(['DELETE'])
 def delete_review(request, review_pk):

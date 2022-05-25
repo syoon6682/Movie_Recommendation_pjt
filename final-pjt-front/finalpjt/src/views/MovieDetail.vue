@@ -1,19 +1,23 @@
 <template>
   <div>
-    <div :style="{ backgroundImage: url('https://image.tmdb.org/t/p/w500' + '${recommMovie.poster_path}')}">
-    </div>
+    <div
+      class="movie-detail-image"
+      :style="{ backgroundImage: `url(${image(recommMovie.poster_path)})` }"
+    ></div>
     <h1>MOVIE DETAIL</h1>
     <br>
     <div class="container" style="width: 800px;">
       <img :src="'https://image.tmdb.org/t/p/w500' + recommMovie.poster_path" alt="poster" class="poster">
       <br>
       <br>
-      <h3>{{ recommMovie.title }}</h3>
-      <br>
-      {{ recommMovie.release_date }}
-      <br>
-      <!-- {{ recommMovie.genre_ids }} -->
-      {{ recommMovie.overview }}
+      <div class="text">
+        <h3>{{ recommMovie.title }}</h3>
+        <br>
+        {{ recommMovie.release_date }}
+        <br>
+        <!-- {{ recommMovie.genre_ids }} -->
+        {{ recommMovie.overview }}
+      </div>
     </div>
     <br>
     <hr>
@@ -41,6 +45,9 @@ export default {
   },
   methods: {
     ...mapActions(['fetchMovie']),
+    image(img) {
+      return `https://image.tmdb.org/t/p/w500${img}`
+    },
   },
   created() {
     // console.log(this.$route.params.movieId)
@@ -65,5 +72,34 @@ export default {
     display: flex;
     margin-left: 30px;
     padding: 10px;
+  }
+
+  .movie-detail-image::after {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  min-height: 100vh;
+  background-color: rgb(40, 40, 40);
+  opacity: 0.8;
+  content: "";
+  display: block;
+  }
+  .movie-detail-image {
+    background-size: cover;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+
+    /* filter: grayscale(px); */
+  }
+
+  .text {
+    color: white;
   }
 </style>

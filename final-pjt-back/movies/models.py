@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 from statistics import mode
 from xmlrpc.client import boolean
 from django.conf import settings
@@ -27,7 +28,6 @@ class Movie(models.Model):
 
 
 
-
 # 완성도 높인 모델
 # review -> Review
 class Review(models.Model):
@@ -36,16 +36,16 @@ class Review(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    rank = models.IntegerField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="like_reviews")
 
 
-class Comment(models.Model):
-    review = models.ForeignKey(Review, on_delete=models.CASCADE)
-    content = models.TextField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+# class Comment(models.Model):
+#     review = models.ForeignKey(Review, on_delete=models.CASCADE, related_name='comments')
+#     content = models.TextField()
+#     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments')
 
 
-class Review_like(models.Model):
-    review = models.ForeignKey(Review, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+# class Like(models.Model):
+#     review = models.ForeignKey(Review, on_delete=models.CASCADE, )
+#     user = models.ForeignKey(User, on_delete=models.CASCADE, )

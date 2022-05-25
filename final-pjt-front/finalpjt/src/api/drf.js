@@ -22,7 +22,7 @@ export default {
     // /movies/1/
     movieList: () => HOST + MOVIES,
     movie: moviePk => HOST +  MOVIES + `${moviePk}/`,
-    // review: moviePk => HOST + MOVIES + `${moviePk}/` + REVIEW,
+    review: moviePk => HOST + MOVIES + `${moviePk}/` + REVIEW,
     newreview: (moviePk) => HOST + MOVIES + `${moviePk}` + '/' + REVIEW + 'new/',
     reviewdetail: (moviePk, reviewPk) => HOST + MOVIES + `${moviePk}/` + REVIEW + `${reviewPk}/`,
     search: (search) => HOST + MOVIES + 'search/' + `${search}`,

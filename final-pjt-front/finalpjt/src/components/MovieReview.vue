@@ -1,18 +1,19 @@
 <template>
-  <div>
-    <h1>Review</h1>
+  <div class="container">
+    <h1 class="title">Review</h1>
       <router-link 
         :to="{ name: 'newreview', }">
         create
       </router-link>
-    <ul>
-      <li v-for="review in reviews" :key="review.id">
-        <router-link 
-          :to="{ name: 'reviewdetail', params: {movieId: movie.id, reviewId: review.id} }">
-          {{ review.title }}
-        </router-link>
-      </li>
-    </ul>
+      <ul>
+        <li v-for="review in reviews" :key="review.id">
+        <!-- <router-link 
+        :to="{ name: 'reviewdetail', params: {movieId: movie.id, reviewId: review.id} }">
+
+        </router-link> -->
+        {{ review.title }}
+        </li>
+      </ul>
   </div>
 </template>
 
@@ -34,12 +35,14 @@ export default {
     ...mapActions(['fetchReviews'])
   },
   created() { 
-    this.fetchReviews()
+    this.fetchReviews(this.movieId)
   },
 
 }
 </script>
 
 <style>
-
+  .container{
+    color: white;
+  }
 </style>

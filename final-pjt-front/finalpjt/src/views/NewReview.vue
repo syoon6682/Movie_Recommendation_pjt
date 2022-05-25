@@ -17,8 +17,10 @@
       return {
         review: {
           pk: null,
+          movie: { pk: this.$store.getters.recommMovie.id },
           title: '',
           content: '',
+          rank: 1,
         }
       }
     },

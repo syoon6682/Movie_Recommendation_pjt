@@ -61,13 +61,16 @@ export default {
 
   actions: {
   //review
-  fetchReviews({ commit, getters }) {
+  fetchReviews({ commit, getters }, movieId) {
     axios({
-      url: drf.movies.review(),
+      url: drf.movies.review(movieId),
       method: 'get',
       headers: getters.authHeader,
     })
-      .then(res => commit('SET_REVIEWS', res.data))
+      .then(res => {
+        console.log(res.data)
+        commit('SET_REVIEWS', res.data)}
+        )
       .catch(err => console.error(err.response))
   },
 
@@ -86,20 +89,24 @@ export default {
       })
   },
 
-  createReview({ getters }, {review, moviePk}) {
+  createReview({ getters, commit }, {newReview, moviePk}) {
     axios({
       url: drf.movies.newreview(moviePk),
       method: 'post',
-      data: review,
+      data: newReview,
       headers: getters.authHeader,
+      params: {
+        title: newReview.title,
+        content: newReview.content,
+      }
     })
       .then(res => {
         console.log(res)
-        // commit('SET_REVIEW', res.data)
-        // router.push({
-        //   name: 'review',
-        //   params: { reviewPk: getters.review.pk, moviePk: getters.movie.pk }
-        // })
+        commit('SET_REVIEW', res.data)
+        router.push({
+          name: 'review',
+          params: { reviewPk: getters.review.pk, moviePk: getters.movie.pk }
+        })
       })
   },
 

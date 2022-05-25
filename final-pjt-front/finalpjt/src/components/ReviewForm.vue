@@ -1,5 +1,6 @@
 <template>
   <form @submit.prevent="onSubmit">
+    <p>{{ review.moviePk }}</p>
     <div>
       <label for="title">title: </label>
       <input v-model="newReview.title" type="text" id="title" />
@@ -36,7 +37,7 @@ import { mapActions } from 'vuex'
       ...mapActions(['createReview', 'updateReview']),
       onSubmit() {
         // if (this.action === 'create') {
-          console.log(this)
+          console.log(this.newReview)
           const payload = {newReview: this.newReview, moviePk: this.$store.getters.recommMovie.id,}
           this.createReview(payload)
         // } else if (this.action === 'update') {
