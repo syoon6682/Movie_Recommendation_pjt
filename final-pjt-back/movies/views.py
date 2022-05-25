@@ -99,6 +99,7 @@ def create_comment(request, review_pk):
     review = get_object_or_404(Review, pk=review_pk)
     
     serializer = CommentSerializer(data=request.data)
+    print('hi')
     if serializer.is_valid(raise_exception=True):
         serializer.save(review=review, user=user)
 
