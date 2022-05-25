@@ -11,7 +11,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import CommentList from '@/components/CommentList.vue'
+import CommentList from '@/components/CommentList'
 
 export default {
   name: 'ReviewDetail',

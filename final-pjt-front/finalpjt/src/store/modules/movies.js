@@ -103,11 +103,14 @@ export default {
       }
     })
       .then(res => {
-        console.log(res)
         commit('SET_REVIEW', res.data)
+        // console.log(getters.review),
+        // console.log(getters.reviews),
+        console.log(res.data)
+        console.log(getters.recommMovie)
         router.push({
           name: 'reviewdetail',
-          params: { reviewId: getters.review.pk, movieId: getters.recommMovie.id }
+          params: { reviewId: res.data.pk, movieId: getters.recommMovie.id }
         })
       })
   },
@@ -201,6 +204,20 @@ export default {
       }
     },
 
+    fetchComment({ commit, getters }, {movieId, reviewId}) {
+      axios({
+        url: drf.movies.reviewdetail(movieId, reviewId),
+        method: 'get',
+        headers: getters.authHeader,
+      })
+        .then(res => commit('SET_REVIEW', res.data))
+        .catch(err => {
+          console.error(err.response)
+          if (err.response.status === 404) {
+            router.push({ name: 'notfound404' })
+          }
+        })
+    },
 
 
 

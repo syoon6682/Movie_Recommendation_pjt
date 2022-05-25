@@ -37,8 +37,7 @@ import { mapActions } from 'vuex'
       ...mapActions(['createReview', 'updateReview']),
       onSubmit() {
         // if (this.action === 'create') {
-          console.log(this.newReview)
-          const payload = {newReview: this.newReview, moviePk: this.$store.getters.recommMovie.id,}
+          const payload = {newReview: this.newReview, moviePk: this.$store.getters.recommMovie.id, }
           this.createReview(payload)
         // } else if (this.action === 'update') {
         //   const payload = {
