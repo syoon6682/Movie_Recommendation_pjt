@@ -2,7 +2,11 @@
   <div>
   <b-navbar toggleable="lg" type="dark" variant="dark">
     <b-navbar-brand class="homelogo p-3" style="font-size:65px" href="/">
-      <span class="homelogo">CINE</span><span class="p homelogo">POP</span>
+      <!-- <em><i class="fa-solid fa-clapperboard-play"></i></em> -->
+      <span class="homelogo">
+        CINE
+      </span>
+      <span class="p homelogo">POP</span>
     </b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>

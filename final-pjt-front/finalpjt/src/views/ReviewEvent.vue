@@ -1,11 +1,22 @@
 <template>
   <div class="container">
-    <h1>{{profile.username}} 님의 개인 기록</h1>
+    <!-- <i class="fa-solid fa-clapperboard-play"></i> -->
+    <h1> 리뷰왕 </h1>
+    <h2>{{ totalRank[1].name }}</h2>
+    <!-- <p v-for="content in totalRank" :key="content.rank">
+      {{ content}}
+    </p> -->
+
+
+    <hr>
+    <br>
+    <h2>{{profile.username}} 님의 개인 기록</h2>
     <br>
     <div class="box">
-      <p>전체 review 수: {{reviewSum}}</p>
-      <p>review에 달린 전체 comment 수 : {{commentSum}}</p>
-      <p>review에 달린 전체 좋아요 수 : {{likeSum}}</p>
+      <h4>총 {{reviewSum}} 개의 리뷰를 달았어요!</h4>
+      <br>
+      <p>내 review에 달린 전체 comment 수 : {{commentSum}}</p>
+      <p>내 review에 달린 전체 좋아요 수 : {{likeSum}}</p>
     </div>
     
     <div class="ranking">
@@ -85,12 +96,13 @@ export default {
     width: 810px;
     /* border: solid 0.2px; */
     /* border-color: black; */
-    background-color: rgb(255, 224, 20);
+    background-color: rgb(255, 203, 203);
     border-radius: 15px;
     color: black;
     font-size: 20px;
     padding: 30px;
     margin-bottom: 10px;
+    box-shadow: 2px 0 9px rgba(0.1, 0, 0.2, 0.5);
   }
 
   .ranking {
@@ -100,23 +112,25 @@ export default {
   }
 
   .myrank {
-    border: solid 0.2px;
     width: 400px;
     height: 400px;
-    border-radius: 15px;
+    border-radius: 10px;
     padding: 30px;
     margin-right: 7px;
+    box-shadow: 2px 0 9px rgba(0.1, 0, 0.2, 0.5);
   }
 
   .totalrank {
-    border: solid 0.2px;
     width: 400px;
     height: 400px;
-    border-radius: 15px;
+    border-radius: 10px;
     padding: 30px;
     margin-left: 7px;
+    box-shadow: 2px 0 9px rgba(0.1, 0, 0.2, 0.5);
   }
-  input:placeholder{
-    text-align: center
+
+  p {
+    font-size: 20px;
   }
+
 </style>
