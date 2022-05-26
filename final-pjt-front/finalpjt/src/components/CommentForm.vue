@@ -71,6 +71,10 @@ button {
   margin-left: 12px;
 }
 
+button:hover {
+  background-color: rgb(255, 129, 129)
+}
+
 .userinfo {
   font-style: bold;
   margin-left: 3px;

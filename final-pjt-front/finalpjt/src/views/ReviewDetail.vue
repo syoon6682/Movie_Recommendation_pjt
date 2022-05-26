@@ -1,7 +1,14 @@
 <template>
   <div>
-    <div>{{ reviewId }}</div>
+    <!-- <div>{{ reviewId }}</div> -->
   <div class="container">
+    
+    <button class="btn btn-dark backbutton">
+      <router-link :to="{ name: 'moviedetail', params: { movieId } }">
+        <a class="back">Back</a>
+      </router-link>
+    </button>
+
     <div class="textbox">
       <h1>{{ review.title }}</h1>
       <div class=authorinfo>
@@ -18,8 +25,8 @@
     
 
       <div>
-        {{ likeCount }} 명이 이 리뷰를 좋아합니다
-        
+        <i class="fa-regular fa-message"></i>
+        {{ commentCount }}
         <button class="btn likeBtn" style="font-family: sans-serif"
             @click="likeReview({reviewPk: reviewId, moviePk: movieId})">❤</button>
           <!-- <button  v-if="likeCount===0" class="btn btn-light"
@@ -28,6 +35,9 @@
           <button v-else-if="likeCount>0" class="btn btn-light"
             @click="likeReview(this.reviewId)"
           >❤</button> -->
+        {{ likeCount }}   
+
+
       <hr>
       <h5>COMMENTS</h5>
       <comment-list :comments="comments"></comment-list>
@@ -56,6 +66,9 @@ export default {
     ...mapGetters(['review', 'recommMovie', 'comments', 'isAuthor']),
     likeCount() {
       return this.review.like_users?.length
+    },
+    commentCount() {
+      return this.review.comments?.length
     }
   },
   methods: {
@@ -99,6 +112,7 @@ export default {
     border-radius: 100px;
     border: none;
     background-color: none;
+    color: red;
   }
 
   .textbox {
@@ -125,5 +139,23 @@ export default {
 
   .authorinfo {
     display: flex;
+  }
+
+  a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+  }
+
+  .backbutton {
+    width: 60px;
+    height: 35px;
+    /* border: solid 0.2px; */
+    /* box-shadow: 2px 0 9px rgba(0.1, 0, 0.2, 0.4); */
+    border-radius: 10px;
+  }
+
+  .backbutton:hover {
+    background-color: rgb(255, 129, 129);
   }
 </style>

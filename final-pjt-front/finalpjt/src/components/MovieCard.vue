@@ -4,7 +4,7 @@
     <img :src="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="poster" class="card-img-top">
     <div class="card-body">
       <!-- <h3> {{movie.title}}</h3> -->
-      <router-link  :to="{ name: 'moviedetail', params: { movieId: movie.id }}">자세히 보기</router-link>
+      <router-link  :to="{ name: 'moviedetail', params: { movieId: movie.id }}">MOVIE DETAIL</router-link>
     </div>
   </div>
 </div>
@@ -23,6 +23,16 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+  img:hover {
+    transform: scale(1.05); 
+  }
+
+  a {
+    /* text-decoration: none; */
+    font-size: 20px;
+    color: rgb(255, 66, 66);
+  }
+
 
 </style>

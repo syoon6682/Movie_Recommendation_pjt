@@ -4,7 +4,7 @@
     <b-navbar-brand class="homelogo p-3" style="font-size:65px" href="/">
       <!-- <em><i class="fa-solid fa-clapperboard-play"></i></em> -->
       <span class="homelogo">
-        CINE
+       <i class="fa-regular fa-file-video"></i> CINE
       </span>
       <span class="p homelogo">POP</span>
     </b-navbar-brand>
@@ -67,9 +67,12 @@
 
 <style scoped>
   @import url('https://fonts.googleapis.com/css2?family=Bangers&family=IBM+Plex+Sans+KR:wght@300;500&display=swap');
-  
+  @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Poppins&family=IBM+Plex+Sans+KR:wght@300;500&display=swap');
+
+
   .navitem {
-    font-family: 'IBM+Plex+Sans+KR';
+    font-family: 'IBM Plex Sans KR', sans-serif;
+    font-weight: 300;
   }
 
   .homelogo {
@@ -86,6 +89,13 @@
 
   .p {
     color: rgb(200, 0, 0);
+    margin-left: -10px;
     
   }
+
+  i {
+    margin-left: 5px;
+    margin-right: 0px;
+  }
+
 </style>

@@ -3,17 +3,17 @@
     <div class="menucontainer">
        <br>
       <span data-content="caption" class="popcornevent">
-        <router-link :to="{ name: 'popcorn' }" append><img class="popcornimage" src="@/assets/events/popcorn.jpg"/></router-link>
+        <router-link :to="{ name: 'popcorn' }" append><img class="popcornimage" src="@/assets/events/homepopcorn.jpg"/></router-link>
         <!-- <div class="centered">공짜 팝콘에 도전하세요!</div> -->
       </span>
       <br>
       <span class="reviewevent">
-        <router-link :to=" { name: 'reviewevent' }" append><img class="revieweventimage" src="@/assets/events/reviewevent.jpg"/></router-link>
+        <router-link :to=" { name: 'reviewevent' }" append><img class="revieweventimage" src="@/assets/events/homereviewevent.jpg"/></router-link>
         <!-- <div class="centered">리뷰왕을 찾아라</div> -->
       </span>
       <br>
       <span class="reviewevent">
-        <router-link :to=" { name: 'question1' }" append><img class="revieweventimage" src="@/assets/events/moviemaking.jpg"/></router-link>
+        <router-link :to=" { name: 'question1' }" append><img class="revieweventimage" src="@/assets/events/homemovierecomm.jpg"/></router-link>
         <!-- <div class="centered">리뷰왕을 찾아라</div> -->
       </span>
     </div>
@@ -23,13 +23,12 @@
     <br>
     <br>
 
-    <div class="container">
+    
       <div class="row row-cols-3 row-cols-md-5 g-4">
         <movie-card v-for="movie in movies.movies" :key="movie.id" :movie="movie"></movie-card>
       </div>
     </div>
-  </div>
-</template>
+  </template>
 
 <script>
 // @ is an alias to /src
@@ -103,6 +102,7 @@ export default {
     color: white;
     font-size: 50px;
     font-weight: 900;
+
   }
 
    .menucontainer {

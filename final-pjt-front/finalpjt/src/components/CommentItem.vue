@@ -2,7 +2,7 @@
   <div>
   <li class="comment-list-item">
     <router-link :to="{ name: 'profile', params: { username: comment.user.username } }">
-      {{ comment.user.username }}
+      <i class="fa-solid fa-circle-user"></i>{{ comment.user.username }}
     </router-link>: 
     
     <span v-if="!isEditing">{{ payload.content }}</span>
@@ -73,5 +73,7 @@ export default {
   color: rgb(251, 66, 66);
 }
 
-
+i {
+  margin-right: 5px;
+}
 </style>

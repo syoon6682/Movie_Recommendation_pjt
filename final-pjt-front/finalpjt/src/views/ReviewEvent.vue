@@ -1,12 +1,25 @@
 <template>
   <div class="container">
-    <!-- <i class="fa-solid fa-clapperboard-play"></i> -->
-    <h1> 리뷰왕 </h1>
+
+    <h1> 오늘의 리뷰왕 </h1>
     <h2>{{ totalRank[1].name }}</h2>
     <!-- <p v-for="content in totalRank" :key="content.rank">
       {{ content}}
     </p> -->
 
+    <div class="expbox">
+      
+        <h5>오늘의 리뷰왕은 다음과 같이 선출됩니다.</h5>
+        <br>
+        <p>Review 글 한 개당 1000 point</p>
+        <p>해당 Review 글에 달린 comment 한 개당 500 pointt,</p>
+        <p>해당 Review 글에 달린 Like 한 개당 200 point가 적립되며, </p>
+        <p>가장 많은 포인트를 가진 회원이 오늘의 리뷰왕이 됩니다! </p>
+        <br>
+        <br>
+        <h5>리뷰왕이 되신 분께는 현재 상영중인 영화 티켓 한 장을 상품으로 드립니다!</h5>
+      
+    </div>
 
     <hr>
     <br>
@@ -22,6 +35,7 @@
     <div class="ranking">
       <div class="myrank">
         <h4>나의 순위</h4>
+        <br>
         <p>현재 순위: {{rank}}</p>
         <p>현재 points: {{current}} pts</p>
       </div>
@@ -30,7 +44,7 @@
         <h4>전체 순위</h4>
         <ul>
           <li v-for="content in totalRank" :key="content.rank">
-            <p>{{content.rank}}위: {{content.name}}, 점수: {{content.point}}</p>
+            <p>{{content.rank}}위: {{content.name}}, 포인트: {{content.point}} PT</p>
           </li>
         </ul>
       </div>
@@ -93,7 +107,8 @@ export default {
   }
 
   .box {
-    width: 810px;
+    display: relative;
+    width: 53%;
     /* border: solid 0.2px; */
     /* border-color: black; */
     background-color: rgb(255, 203, 203);
@@ -112,7 +127,8 @@ export default {
   }
 
   .myrank {
-    width: 400px;
+    display: relative;
+    width: 100%;
     height: 400px;
     border-radius: 10px;
     padding: 30px;
@@ -121,7 +137,9 @@ export default {
   }
 
   .totalrank {
+    display: relative;
     width: 400px;
+    width: 100%;
     height: 400px;
     border-radius: 10px;
     padding: 30px;
@@ -131,6 +149,21 @@ export default {
 
   p {
     font-size: 20px;
+
   }
+
+
+  .expbox {
+
+    background-color: rgb(211, 211, 211);
+    padding: 20px;
+    display: relative;
+    width: 70%;
+    height: 205px;
+    border-radius: 20px;
+    line-height: 6px;
+
+  }
+
 
 </style>
