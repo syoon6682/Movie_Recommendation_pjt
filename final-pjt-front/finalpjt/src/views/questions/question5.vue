@@ -70,6 +70,7 @@ export default {
     box-shadow: 0 5px 45px rgba(0, 0, 0, 0.2);
     border-radius: 20px;
     padding: 10px;
+    margin-top: 50px;
   }
 
   .radiobutton {

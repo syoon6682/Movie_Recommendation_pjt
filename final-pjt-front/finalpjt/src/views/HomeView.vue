@@ -1,8 +1,33 @@
 <template>
   <div class="home">
-    <div class="row row-cols-3 row-cols-md-5 g-4">
-    <movie-card v-for="movie in movies.movies" :key="movie.id" :movie="movie"></movie-card>
-  </div>
+    <div class="menucontainer">
+       <br>
+      <span data-content="caption" class="popcornevent">
+        <router-link :to="{ name: 'popcorn' }" append><img class="popcornimage" src="@/assets/events/popcorn.jpg"/></router-link>
+        <!-- <div class="centered">공짜 팝콘에 도전하세요!</div> -->
+      </span>
+      <br>
+      <span class="reviewevent">
+        <router-link :to=" { name: 'reviewevent' }" append><img class="revieweventimage" src="@/assets/events/reviewevent.jpg"/></router-link>
+        <!-- <div class="centered">리뷰왕을 찾아라</div> -->
+      </span>
+      <br>
+      <span class="reviewevent">
+        <router-link :to=" { name: 'question1' }" append><img class="revieweventimage" src="@/assets/events/moviemaking.jpg"/></router-link>
+        <!-- <div class="centered">리뷰왕을 찾아라</div> -->
+      </span>
+    </div>
+
+    <hr>
+
+    <br>
+    <br>
+
+    <div class="container">
+      <div class="row row-cols-3 row-cols-md-5 g-4">
+        <movie-card v-for="movie in movies.movies" :key="movie.id" :movie="movie"></movie-card>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -20,6 +45,12 @@ export default {
   components: {
     MovieCard,
   },
+  data() {
+  return {
+    slide: 0,
+    sliding: null
+  }
+  },
   created() {
     this.getMovie();
   },
@@ -30,6 +61,12 @@ export default {
     }
   },
   methods: {
+    onSlideStart() {
+      this.sliding = true
+    },
+    onSlideEnd() {
+      this.sliding = false
+    }, 
     ...mapActions(['getMovie']),
     popularMovies () {
       axios.get(movies.movies.movieList(), {
@@ -44,7 +81,9 @@ export default {
         console.log(err)
         console.log(accounts.state.token)
       })
-      
+
+
+
       
     }
   },
@@ -53,6 +92,35 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+  .container {
+    display: flex;
+    justify-content: center;
+  }
 
+  a {
+    text-decoration: none;
+    color: white;
+    font-size: 50px;
+    font-weight: 900;
+  }
+
+   .menucontainer {
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+  }
+
+
+
+  img {
+    width: 500px;
+    height: 370px;
+    margin-top: 40px;
+    margin: 10px;
+  }
+
+  img:hover {
+    transform: scale(1.05); 
+  }
 </style>

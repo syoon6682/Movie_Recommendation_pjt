@@ -20,11 +20,9 @@
   <div>
     <div class="home">
     <div class="row row-cols-3 row-cols-md-5 g-4">
- <div class="row row-cols-3 row-cols-md-5 g-4">
     <movie-card v-for="movie in recommMovie" :key="movie.id" :movie="movie"></movie-card>
-  </div>
-  </div>
-  </div>
+    </div>
+    </div>
   </div>
 </template>
 

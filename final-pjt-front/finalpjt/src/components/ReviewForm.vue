@@ -65,7 +65,7 @@ import { mapActions } from 'vuex'
   }
 </script>
 
-<style>
+<style scoped>
 
 ::placeholder {
 
