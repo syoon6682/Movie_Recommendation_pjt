@@ -9,13 +9,13 @@
 
     <span v-if="isEditing">
       <input type="text" v-model="payload.content">
-      <button @click="onUpdate">Update</button> |
-      <button @click="switchIsEditing">Cancel</button>
+      <a class="editdelete" @click="onUpdate"><i class="fa-solid fa-pen-clip"></i></a> |
+      <a class="editdelete" @click="switchIsEditing"><i class="fa-solid fa-xmark"></i></a>
     </span>
 
     <span v-if="currentUser.username === comment.user.username && !isEditing">
-      <button @click="switchIsEditing">Edit</button> |
-      <button @click="deleteComment(payload)">Delete</button>
+      <a class="editdelete" @click="switchIsEditing"><i class="fa-solid fa-pen-clip"></i></a> |
+      <a class="editdelete" @click="deleteComment(payload)"><i class="fa-solid fa-trash-can"></i></a>
     </span>
   </li>
 
@@ -59,5 +59,19 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Poppins&family=IBM+Plex+Sans+KR:wght@300;500&display=swap');
+
+* { 
+      font-family: 'IBM Plex Sans KR', sans-serif;
+      font-weight: 100;
+    } 
+
+.editdelete {
+  margin-left: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  color: rgb(251, 66, 66);
+}
+
 
 </style>

@@ -321,3 +321,4 @@ $RECYCLE.BIN/
 venv/
 
 *.sqlite3
+migrations/

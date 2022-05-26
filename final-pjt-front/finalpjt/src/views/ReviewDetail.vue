@@ -2,13 +2,15 @@
   <div class="container">
     <div class="textbox">
       <h1>{{ review.title }}</h1>
-      <p class="userinfo">{{ review.user.username }} | {{ review.created_at }} 작성</p>
+      <div class=authorinfo>
+        <p class="userinfo">{{ review.user.username }} | {{ review.created_at }} 작성</p>
         <div v-if="isAuthor">
           <router-link :to="{ name: 'reviewedit', params: { reviewId } }">
-            <button class="btn btn-dark">Edit</button>
+            <a class="edit">edit<i class="fa-solid fa-pen-to-square"></i></a>
           </router-link>
-          <button class="btn btn-dark" @click="deleteReview({ movieId, reviewId })">Delete</button>
+          <a class="delete" @click="deleteReview({ movieId, reviewId })">delete<i class="fa-solid fa-trash-can"></i></a>
         </div>
+      </div>
       <hr>
       <p>{{ review.content }}</p>
     
@@ -17,7 +19,7 @@
         {{ likeCount }} 명이 이 리뷰를 좋아합니다
         
         <button class="btn likeBtn" style="font-family: sans-serif"
-            @click="likeReview(this.reviewId)">❤</button>
+            @click="likeReview(reviewId)">❤</button>
           <!-- <button  v-if="likeCount===0" class="btn btn-light"
             @click="likeReview(this.reviewId)"
           >♡</button>
@@ -85,7 +87,8 @@ export default {
     color: black;
 
     margin-top: 100px;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);
+    box-shadow: 2px 0 9px rgba(0.1, 0, 0.2, 0.5);
+    border-radius: 10px;
     padding: 50px;
     
   }
@@ -97,10 +100,10 @@ export default {
   }
 
   .textbox {
-    border: 0.5px solid;
-    border-color: rgb(165, 165, 165);
-    border-radius: 10px;
-    padding: 30px;
+    /* border: 0.5px solid; */
+    /* border-color: rgb(165, 165, 165); */
+    /* border-radius: 10px; */
+    padding: 20px;
 
   }
 
@@ -108,6 +111,17 @@ export default {
     font-size: 15px;
   }
 
+  .edit {
+    text-decoration: none;
+    margin-left: 10px;
+  }
 
+  .delete {
+    margin-left: 4px;
+    cursor: pointer;
+  }
 
+  .authorinfo {
+    display: flex;
+  }
 </style>
