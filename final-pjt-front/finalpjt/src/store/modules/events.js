@@ -1,9 +1,11 @@
-// import router from '@/router'
-// import axios from 'axios'
-// import drf from '@/api/drf'
-// import router from '@/router'
+import axios from 'axios'
+import drf from '@/api/drf'
 import router from '@/router'
 import accounts from '@/store/modules/accounts'
+// import {changemileage} from '@/store/modules/accounts'
+
+// import { get } from 'core-js/core/dict'
+// import { parseInt } from 'core-js/core/number'
 // import _ from 'lodash'
 
 
@@ -36,22 +38,37 @@ export default {
   },
 
   actions: {
-
+    
     // 신청자 localStorage에 저장
-    savePopcorn({commit}){
+    savePopcorn({ getters, commit, dispatch}, ){
+      // 신청자 조건 확인 
       const username = accounts.state.currentUser.username
-      // var test = this.getters.popcorn
-      var list = JSON.parse(localStorage.getItem('popcorn'))
-      list.push(username)
-      // console.log(list)
-      localStorage.setItem('popcorn', JSON.stringify(list))
-      const applicants = JSON.parse(localStorage.getItem('popcorn')).length
-      console.log(applicants)
-      commit('SET_APPLICANTS', applicants)
-      // console.log(username)
-      // console.log(localStorage.getItem('popcorn'))
-    },
+      
+      axios({
+        url: drf.accounts.profile(username),
+        method: 'get',
+        headers: getters.authHeader,
+      })
+        .then(res => {
+          if(res.data.mileage < 2000){
+            alert('이 그지야!')
+          } else {
+            // 신청자 수 저장
+            // changemileage 수정
+            let mileage = res.data.mileage
+            mileage -= 2000
+            console.log(username)
+            console.log(accounts)
+            dispatch('changeMileage',{username: username, mileage: mileage})
+            var list = JSON.parse(localStorage.getItem('popcorn'))
 
+            list.push(username)
+            localStorage.setItem('popcorn', JSON.stringify(list))
+            const applicants = JSON.parse(localStorage.getItem('popcorn')).length
+            commit('SET_APPLICANTS', applicants)
+          }
+        })
+    },
 
     // 이벤트 마감 및 당첨자 반환
     resetList({commit, getters}) {
@@ -74,16 +91,19 @@ export default {
       commit('SET_APPLICANTS', applicants)
     },
 
+
     fetchList({commit, getters}) {
       const winner = JSON.parse(localStorage.getItem('popcorn'))
 
       // random으로 20% 인원 무작위 선발 로직
-      let lucky = parseInt(winner.length * 0.2) 
+      let lucky = parseInt(winner.length * 0.2)
+      console.log('lucky is ', lucky)
+      console.log(winner.length)
       commit('SET_WINNER', winner )
       let visited = []
       let result = []
       for(let i=0; i < lucky; ) {
-        let num = Math.floor(Math.random() * 5)
+        let num = Math.floor(Math.random() * winner.length)
         if (visited.indexOf(num) === -1){
           visited.push(num)
           result.push(winner[num]) 
@@ -94,6 +114,8 @@ export default {
       commit('SET_WINNER', result)
       console.log(getters.winner)
     },
+
+
 
   },
 }

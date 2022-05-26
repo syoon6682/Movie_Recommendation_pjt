@@ -152,7 +152,7 @@ export default {
         })      
       },
 
-      // Localstorage를 활용한 mileage 충전
+    // mileage 충전
     changeMileage ({getters}, {username, mileage}) {
       console.log(mileage)
       axios({

@@ -8,7 +8,7 @@
       <img src="@/assets/gift.jpg" width="200">
     </a>
     <br>
-    <button @click="savePopcorn">응모하기</button>
+    <button @click="savePopcorn()">응모하기</button>
     <button @click="goToResult">당첨자 확인!</button>
     <br>
     <br>
@@ -45,7 +45,6 @@ export default {
     const payload = { username: this.$store.getters.currentUser.username}
     this.displayPopcorn()
     this.fetchProfile(payload)
-    console.log(this)
   },
 }
 </script>

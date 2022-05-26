@@ -18,7 +18,7 @@ export default {
     ...mapActions(['fetchList','resetList', ]),
   },
   created() {
-    console.log()
+    console.log(this)
     this.fetchList()
   },
 }
