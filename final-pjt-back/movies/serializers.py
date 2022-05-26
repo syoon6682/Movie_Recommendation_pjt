@@ -34,7 +34,7 @@ class CommentSerializer(serializers.ModelSerializer):
             fields = ('pk', 'username')
 
     user = UserSerializer(read_only=True)
-    print(user)
+
     class Meta:
         model = Comment
         fields = ('pk', 'user', 'content', 'review',)
@@ -49,7 +49,6 @@ class LikeSerializer(serializers.ModelSerializer):
             fields = ('pk', 'username')
 
     user = UserSerializer(read_only=True)
-
     class Meta:
         model = Like
         fields = ('review', 'user')
@@ -61,7 +60,7 @@ class ReviewListSerializer(serializers.ModelSerializer):
     class UserSerializer(serializers.ModelSerializer):
         class Meta:
             model = User
-            fields = ('pk', 'username')
+            fields = ('pk', 'username', )
 
     user = UserSerializer(read_only=True)
     # comment_count = serializers.IntegerField()
@@ -69,7 +68,7 @@ class ReviewListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Review
-        fields = ('pk', 'user', 'title', 'content')
+        fields = ('pk', 'user', 'title', 'content', 'created_at',)
 
 class ReviewSerializer(serializers.ModelSerializer):
     class UserSerializer(serializers.ModelSerializer):
