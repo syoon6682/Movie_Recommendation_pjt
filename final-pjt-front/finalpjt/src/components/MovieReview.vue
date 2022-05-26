@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <h1 class="title">Review</h1>
+  <b-container fluid>
+    <h2 class="title">Review 목록</h2>
       <router-link 
         :to="{ name: 'newreview', }">
         create
@@ -12,7 +12,7 @@
           </router-link>
         </li>
       </ul>
-  </div>
+  </b-container>
 </template>
 
 <script>
@@ -41,6 +41,14 @@ export default {
 
 <style scoped>
   .container{
+    display: flex;
+    flex-direction: column;
     color: white;
+    
+  }
+
+  button {
+    width: 100px;
+    border-radius: 20px;
   }
 </style>
