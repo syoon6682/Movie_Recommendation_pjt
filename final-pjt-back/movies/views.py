@@ -7,7 +7,7 @@ from rest_framework.decorators import renderer_classes, api_view
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
 from .models import Movie, Review, Comment, Like
-from .serializers import MovieSerializer, ReviewSerializer, ReviewListSerializer, CommentSerializer, CommentListSerializer
+from .serializers import LikeSerializer, MovieSerializer, ReviewSerializer, ReviewListSerializer, CommentSerializer, CommentListSerializer
 import requests
 from collections import OrderedDict
 
@@ -66,7 +66,7 @@ def review_list(request, movie_pk):
 @api_view(['GET'])
 def review_detail(request, movie_pk, review_pk):
     review = get_object_or_404(Review, pk=review_pk)
-    serializer = ReviewListSerializer(review)
+    serializer = ReviewSerializer(review)
     return Response(serializer.data)
 
 @api_view(['PUT'])
@@ -91,7 +91,7 @@ def delete_review(request, review_pk):
 
 # Comment & Like
 @api_view(['POST'])
-def like_review(request, review_pk):
+def like_review(request, movie_pk, review_pk):
     review = get_object_or_404(Review, pk=review_pk)
     user = request.user
     if review.like_users.filter(pk=user.pk).exists():
@@ -196,9 +196,9 @@ def recommendation_question(request):
 #     print(serializer)
 #     if response.status_code != 200:
 #         print(response)
-#     print(type(response.json()))
-    
+#     print(type(response.json()))    
 #     return Response(MovieSerializer.data)
+
 
 @api_view(('GET',))
 # @renderer_classes((JSONRenderer))

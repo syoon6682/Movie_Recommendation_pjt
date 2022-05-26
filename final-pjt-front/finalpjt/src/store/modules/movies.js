@@ -153,9 +153,11 @@ export default {
     }
   },
 
-  likeReview({ commit, getters }, reviewPk) {
+  likeReview({ commit, getters }, {moviePk, reviewPk}) {
+    console.log('넘어와라..!')
+    console.log(reviewPk)
     axios({
-      url: drf.movies.likeReview(reviewPk),
+      url: drf.movies.likeReview(moviePk, reviewPk),
       method: 'post',
       headers: getters.authHeader,
     })
@@ -218,7 +220,7 @@ export default {
         headers: getters.authHeader,
       })
         .then(res => {
-          console.log(res.data)
+          console.log('fetchcomment data: ', res.data)
           commit('SET_REVIEW_COMMENTS', res.data)
         })
         .catch(err => {

@@ -16,9 +16,9 @@
 
     <div>
       {{ likeCount }} 명이 이 리뷰를 좋아합니다
-      <button
-        @click="likeReview(this.reviewId)"
-      >LIKE</button>
+      <button @click="likeReview({moviePk: movieId, reviewPk: reviewId})">
+      LIKE
+      </button>
     </div>
     
 
@@ -59,6 +59,7 @@ export default {
     this.fetchReview({movieId: this.movieId, reviewId: this.reviewId})
     this.fetchComments({movieId: this.movieId, reviewId: this.reviewId})
     console.log(this.movieId, this.reviewId)
+    console.log(this)
   },
 }
 </script>
