@@ -44,7 +44,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['popcorn', 'applicants', 'currentUser', 'profile', 'winner'])
+    ...mapGetters(['popcorn', 'applicants', 'currentUser', 'profile', 'winner', 'mileage'])
   },
   created() {
     const payload = { username: this.$store.getters.currentUser.username}
