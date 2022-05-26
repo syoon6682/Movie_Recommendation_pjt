@@ -58,7 +58,8 @@ export default {
             let mileage = res.data.mileage
             mileage -= 2000
             console.log(username)
-            dispatch('accounts.actions.changeMileage',{username: username, mileage: mileage})
+            console.log(accounts)
+            dispatch('changeMileage',{username: username, mileage: mileage})
             var list = JSON.parse(localStorage.getItem('popcorn'))
 
             list.push(username)
@@ -113,6 +114,8 @@ export default {
       commit('SET_WINNER', result)
       console.log(getters.winner)
     },
+
+
 
   },
 }
