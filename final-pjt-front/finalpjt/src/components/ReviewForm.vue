@@ -1,17 +1,29 @@
 <template>
   <form @submit.prevent="onSubmit">
     <p>{{ review.moviePk }}</p>
-    <div>
-      <label for="title">title: </label>
-      <input v-model="newReview.title" type="text" id="title" />
-    </div>
-    <div>
-      <label for="content">content: </label>
-      <textarea v-model="newReview.content" type="text" id="content"></textarea>
-    </div>
-    <div>
-      <button>{{ action }}</button>
-    </div>
+    <br>
+    <b-container>
+      <b-row class="my-1">
+        <b-col sm="2">
+          <label for="input-large">title: </label>
+        </b-col>
+        <b-col sm="10">
+          <b-form-input v-model="newReview.title" type="text" id="title" size="lg" placeholder="제목을 입력하세요"></b-form-input>
+        </b-col>
+      </b-row>
+
+      <b-row class="my-2">
+        <b-col sm="2">
+          <label for="input-large">content: </label>
+        </b-col>
+        <b-col sm="10">
+          <b-form-input v-model="newReview.content" type="text" id="content" placeholder="리뷰 내용을 입력하세요"></b-form-input>
+        </b-col>
+      </b-row>
+      <br>
+      <button class="btn btn-dark">{{ action }}</button>
+      <!-- <button href="12"class="btn btn-dark">back to list</button> -->
+    </b-container>
   </form>
 </template>
 
@@ -53,4 +65,20 @@ import { mapActions } from 'vuex'
   }
 </script>
 
-<style></style>
+<style>
+
+::placeholder {
+
+  font-family: 'Poppins', 'IBM Plex Sans KR', sans-serif;
+  font-size: 15px;
+  font-style: italic;
+
+}
+
+#content {
+  height: 300px;
+}
+
+
+
+</style>
