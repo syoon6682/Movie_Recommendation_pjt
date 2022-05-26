@@ -11,14 +11,11 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'PopcornResult',
-  data ()  {
-    // return confetti
-  },
   computed: {
     ...mapGetters(['winner',])
   },
   methods: {
-    ...mapActions(['fetchList','resetList', ]),
+    ...mapActions(['fetchList','resetList',]),
   //   makeItRain() {
   //   setTimeout(function(){
   //     var end = Date.now() + (3 * 1000);
