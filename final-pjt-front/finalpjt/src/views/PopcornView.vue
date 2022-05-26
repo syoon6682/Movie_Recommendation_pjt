@@ -13,7 +13,7 @@
     <br>
     <br>
     <p>현재 응모자 수: {{applicants}}</p>
-    <p>{{currentUser.username}}의 현재 마일리지: {{ profile.mileage }}</p>
+    <p>{{currentUser.username}}의 현재 마일리지: {{ mileage }}</p>
 
     <br><br><br>
     <h3>당첨을 축하드립니다</h3>
@@ -39,7 +39,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['popcorn', 'applicants', 'currentUser', 'profile', 'winner'])
+    ...mapGetters(['popcorn', 'applicants', 'currentUser', 'profile', 'winner', 'mileage'])
   },
   created() {
     const payload = { username: this.$store.getters.currentUser.username}

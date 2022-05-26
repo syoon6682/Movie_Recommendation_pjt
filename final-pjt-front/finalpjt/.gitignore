@@ -24,3 +24,6 @@ pnpm-debug.log*
 
 # DB
 *.sqlite3
+*.movies/migrations/
+*.accounts/migrations/
+

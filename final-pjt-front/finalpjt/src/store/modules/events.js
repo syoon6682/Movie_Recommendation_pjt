@@ -64,16 +64,27 @@ export default {
     // 신청자 localStorage에 저장
     savePopcorn({ getters, commit, dispatch}, ){
       // 신청자 조건 확인 
-      const username = accounts.state.currentUser.username
-      
+      const username = accounts.state.currentUser.username    
       axios({
         url: drf.accounts.profile(username),
         method: 'get',
         headers: getters.authHeader,
       })
         .then(res => {
+          console.log(res)
+          var list = JSON.parse(localStorage.getItem('popcorn'))
+          console.log(list)
+          var part = false
+          for(let key in list){
+            if (list[key] === username) {
+              part = true
+            }
+            
+          }
           if(res.data.mileage < 2000){
             alert('잔액이 부족합니다.')
+          } else if(part){
+            alert('이미 참여하셨습니다.')
           } else {
             // 신청자 수 저장
             // changemileage 수정
@@ -82,12 +93,13 @@ export default {
             console.log(username)
             console.log(accounts)
             dispatch('changeMileage',{username: username, mileage: mileage})
-            var list = JSON.parse(localStorage.getItem('popcorn'))
+            
 
             list.push(username)
             localStorage.setItem('popcorn', JSON.stringify(list))
             const applicants = JSON.parse(localStorage.getItem('popcorn')).length
             commit('SET_APPLICANTS', applicants)
+            commit('SET_MILEAGE', mileage)
           }
         })
     },

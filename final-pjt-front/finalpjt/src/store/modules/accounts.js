@@ -119,6 +119,8 @@ export default {
         headers: getters.authHeader,
       })
         .then(res => {
+          console.log('fetchprofile: ', res.data)
+          commit('SET_MILEAGE', res.data.mileage)
           commit('SET_PROFILE', res.data)
         })
     },
@@ -153,7 +155,7 @@ export default {
       },
 
     // mileage 충전
-    changeMileage ({getters}, {username, mileage}) {
+    changeMileage ({getters, commit}, {username, mileage}) {
       console.log(mileage)
       axios({
         url: drf.accounts.profileUpdate(username),
@@ -164,7 +166,10 @@ export default {
             mileage: mileage,
           }
       })
-      .then(res => console.log(res))
+      .then(res => {
+        console.log(res.data)
+        commit('SET_MILEAGE', mileage)
+      })
     },
 
       // addMileage({getters, commit,}, {username}) {

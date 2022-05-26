@@ -203,7 +203,8 @@ def recommendation_question(request):
 @api_view(('GET',))
 # @renderer_classes((JSONRenderer))
 def recommendation_result(request):
-    movies = get_list_or_404(Movie)
+    movies = Movie.objects.order_by('-popularity')
+    print(movies)
     answer = request.GET.getlist('answer[]')
     answer1= answer[0]
     answer2= answer[1]
@@ -248,22 +249,34 @@ def recommendation_result(request):
             if movie.adult:
                 data.remove(movie)
     elif answer2 == '영화관':
-        for movie in data:
-            pass
-    elif answer2 == '호텔':
         pass
+    elif answer2 == '호텔':
+        for movie in data:
+            if movie.genre_ids.filter(name = '애니메이션').exists():
+                data.remove(movie)
 
 
     if answer3 == '10대 미만':
-        pass
+        if (movie.genre_ids.filter(name = '범죄').exists() or 
+            movie.adult or 
+            movie.genre_ids.filter(name = '공포').exists()):
+            for movie in data:
+                data.remove(movie)
     elif answer3 == '10대':
-        pass
+        if (movie.genre_ids.filter(name = '범죄').exists() or 
+            movie.adult or 
+            movie.genre_ids.filter(name = '공포').exists()):
+            for movie in data:
+                data.remove(movie)
     elif answer3 == '20대~40대':
         pass
     elif answer3 == '50대~60대':
         pass
     elif answer3 == '70대 이상':
-        pass
+        for movie in data:
+            if (movie.genre_ids.filter(name = '애니메이션').exists() or
+                movie.genre_ids.filter(name = '공포').exists()):
+                data.remove(movie)
 
 
     if answer4 == '아주 행복':
@@ -271,10 +284,13 @@ def recommendation_result(request):
     elif answer4 == '화남':
         pass
     elif answer4 == '우울':
-        pass
+        for movie in data:
+            if (movie.genre_ids.filter(name = '다큐멘터리').exists()):
+                data.remove(movie)
     elif answer4 == '심심':
         pass
-
+    
+    data = data[0:10]
     serializer = MovieSerializer(data, many=True)
 
     return Response(serializer.data)
