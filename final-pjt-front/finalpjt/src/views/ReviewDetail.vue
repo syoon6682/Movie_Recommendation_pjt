@@ -18,14 +18,12 @@
         
         <button class="btn likeBtn" style="font-family: sans-serif"
             @click="likeReview(this.reviewId)">❤</button>
-        
           <!-- <button  v-if="likeCount===0" class="btn btn-light"
             @click="likeReview(this.reviewId)"
           >♡</button>
           <button v-else-if="likeCount>0" class="btn btn-light"
             @click="likeReview(this.reviewId)"
           >❤</button> -->
-
       <hr>
       <h5>COMMENTS</h5>
       <comment-list :comments="comments"></comment-list>

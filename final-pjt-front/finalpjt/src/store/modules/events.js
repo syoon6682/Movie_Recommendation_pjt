@@ -19,13 +19,25 @@ export default {
   state: {
     popcorn: localStorage.getItem('popcorn'),
     applicants: null,
-    winner: null
+    winner: null,
+    reviewSum: null,
+    commentSum: null,
+    likeSum: null,
+    points: localStorage.getItem('points'),
+    rank: null, 
+    totalRank: null,
   },
 
   getters: {
     popcorn:state => state.popcorn,
     applicants: state => state.applicants,
-    winner: state => state.winner
+    winner: state => state.winner,
+    reviewSum: state => state.reviewSum,
+    commentSum: state => state.commentSum,
+    likeSum: state => state.likeSum,
+    points: state => state.points,
+    rank: state => state.rank,
+    totalRank: state => state.totalRank
   },
 
   mutations: {
@@ -34,7 +46,17 @@ export default {
     // }
     SET_POPCORN: (state, popcorn) => state.popcorn = popcorn,
     SET_APPLICANTS: (state, applicants) => state.applicants = applicants,
-    SET_WINNER: (state, winner) => state.winner = winner
+    SET_WINNER: (state, winner) => state.winner = winner,
+    SET_REVIEWSUM: (state, reviewSum) => state.reviewSum = reviewSum,
+    SET_COMMENTSUM: (state, commentSum) => state.commentSum = commentSum,
+    SET_LIKESUM: (state, likeSum) => state.likeSum = likeSum,
+    SET_POINTS: (state, points) => state.points = points,
+    SET_RANK: (state, rank) => state.rank = rank,
+    SET_TOTALRANK: (state, totalRank) => state.totalRank = totalRank,
+
+
+    // SET_CURRENTPOINTS: (state, points) => state.points = points,
+
   },
 
   actions: {
@@ -51,7 +73,7 @@ export default {
       })
         .then(res => {
           if(res.data.mileage < 2000){
-            alert('이 그지야!')
+            alert('잔액이 부족합니다.')
           } else {
             // 신청자 수 저장
             // changemileage 수정
@@ -94,7 +116,6 @@ export default {
 
     fetchList({commit, getters}) {
       const winner = JSON.parse(localStorage.getItem('popcorn'))
-
       // random으로 20% 인원 무작위 선발 로직
       let lucky = parseInt(winner.length * 0.2)
       console.log('lucky is ', lucky)
@@ -115,6 +136,76 @@ export default {
       console.log(getters.winner)
     },
 
+    // Event2 정보 fetch
+    fetchEventReview({getters, commit}) {
+      axios({
+        url: drf.event.reviewevent(),
+        method: 'get',
+        headers: getters.authHeader,
+      })
+      .then(res => {
+        
+        // 리뷰 개수
+        const review_sum = res.data.length
+        commit('SET_REVIEWSUM', review_sum)
+
+        // comment_sum & like_sum 개수
+        let comment_sum = 0
+        let like_sum = 0
+        for (let i in res.data){
+          comment_sum += res.data[i].comment_count
+          like_sum += res.data[i].like_count
+        }
+        console.log(review_sum)
+        console.log(comment_sum)
+        console.log(like_sum)
+        commit('SET_COMMENTSUM', comment_sum)
+        commit('SET_LIKESUM', like_sum)
+
+        // point 계산식
+        const points = 1000*review_sum + 500*comment_sum + 200*like_sum
+        console.log(points)
+        console.log(this.getters.currentUser.username)
+
+        // point 기준 정렬
+        let beforePoints = JSON.parse(localStorage.getItem('points'))
+        var newPointsList = Object.assign({}, beforePoints, {[this.getters.currentUser.username]: points});
+        const sortedPointsList = Object.entries(newPointsList)
+        .sort(([, a], [, b]) => b - a)
+        .reduce((r, [k, v]) => ({ ...r, [k]: v }), {})
+
+        // rank 생성
+        let rank = 1
+        for(let [name, point] of Object.entries(sortedPointsList)){
+          console.log(name,point)
+          if(name === this.getters.currentUser.username) {
+            break
+          }
+          rank += 1
+        }
+        commit('SET_RANK', rank)
+
+        console.log(rank)
+        
+        // total 객체, rank와 배열 결합
+        let totalRank = {}
+        let id = 1
+        for(let [name, point] of Object.entries(sortedPointsList)){
+          totalRank[id] = {rank: id, name: name, point: point}
+          id += 1
+        }
+        commit('SET_TOTALRANK', totalRank)
+
+        // total 객체
+        console.log(totalRank)
+
+
+        // 정렬된 배열 localstorage에 적용
+        localStorage.setItem('points',JSON.stringify(sortedPointsList))
+        
+
+      })
+    }
 
 
   },

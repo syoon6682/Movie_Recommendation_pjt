@@ -96,7 +96,6 @@ export default {
 
   .moviereviewtitle {
     font-size: 40px;
-    text-align: ;
   }
 
   .moviereview {

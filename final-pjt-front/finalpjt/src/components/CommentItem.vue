@@ -1,7 +1,5 @@
 <template>
   <div>
-    {{ comment.content }}
-
   <li class="comment-list-item">
     <router-link :to="{ name: 'profile', params: { username: comment.user.username } }">
       {{ comment.user.username }}
