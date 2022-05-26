@@ -2,7 +2,7 @@
   <form @submit.prevent="onSubmit">
     <p>{{ review.moviePk }}</p>
     <br>
-    <b-container>
+    <div class="container">
       <b-row class="my-1">
         <b-col sm="2">
           <label for="input-large">title: </label>
@@ -17,13 +17,13 @@
           <label for="input-large">content: </label>
         </b-col>
         <b-col sm="10">
-          <b-form-input v-model="newReview.content" type="text" id="content" placeholder="리뷰 내용을 입력하세요"></b-form-input>
+          <textarea class="form-control" v-model="newReview.content"></textarea> 
         </b-col>
       </b-row>
       <br>
       <button class="btn btn-dark">{{ action }}</button>
       <!-- <button href="12"class="btn btn-dark">back to list</button> -->
-    </b-container>
+    </div>
   </form>
 </template>
 
@@ -72,12 +72,12 @@ import { mapActions } from 'vuex'
   font-family: 'Poppins', 'IBM Plex Sans KR', sans-serif;
   font-size: 15px;
   font-style: italic;
-
+  
+}
+textarea{
+  padding: 10px;
 }
 
-#content {
-  height: 300px;
-}
 
 
 

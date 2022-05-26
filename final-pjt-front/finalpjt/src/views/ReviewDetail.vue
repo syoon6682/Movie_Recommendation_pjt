@@ -1,4 +1,6 @@
 <template>
+  <div>
+    <div>{{ reviewId }}</div>
   <div class="container">
     <div class="textbox">
       <h1>{{ review.title }}</h1>
@@ -19,7 +21,7 @@
         {{ likeCount }} 명이 이 리뷰를 좋아합니다
         
         <button class="btn likeBtn" style="font-family: sans-serif"
-            @click="likeReview(reviewId)">❤</button>
+            @click="likeReview({reviewPk: reviewId, moviePk: movieId})">❤</button>
           <!-- <button  v-if="likeCount===0" class="btn btn-light"
             @click="likeReview(this.reviewId)"
           >♡</button>
@@ -31,7 +33,7 @@
       <comment-list :comments="comments"></comment-list>
       </div>
     </div>
-
+  </div>
   </div>
 </template>
 

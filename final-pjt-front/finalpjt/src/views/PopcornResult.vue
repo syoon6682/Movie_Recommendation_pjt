@@ -1,8 +1,8 @@
 <template>
  <div class="container">
    <h1>당첨을 축하합니다!</h1>
-   <p>{{winner}}</p>
-   <button @click="resetList">BACK</button>
+   <p>{{ winner }}</p>
+   <button class="btn btn-dark" @click="resetList">BACK</button>
  </div>
 </template>
 
@@ -16,37 +16,39 @@ export default {
   },
   methods: {
     ...mapActions(['fetchList','resetList',]),
-  //   makeItRain() {
-  //   setTimeout(function(){
-  //     var end = Date.now() + (3 * 1000);
-  //   var colors = ['#FF0000', '#ffffff'];
-  //   (function frame() {
-  //     confetti({
-  //       particleCount: 2,
-  //       angle: 60,
-  //       spread: 55,
-  //       origin: { x: 0 },
-  //       colors: colors
-  //     });
-  //     confetti({
-  //       particleCount: 2,
-  //       angle: 120,
-  //       spread: 55,
-  //       origin: { x: 1 },
-  //       colors: colors
-  //     });
 
-  //     if (Date.now() < end) {
-  //       requestAnimationFrame(frame);
-  //     }
-  //   }());
-  //   }, 3000)
-  // }
+    makeItRain() {
+      setTimeout(function (){
+        var end = Date.now();
+        var colors = ['#FF0000', '#ffffff'];
+        let confetti = {};
+      (function frame() {
+        confetti({
+          particleCount: 2,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 },
+          colors: colors
+        });
+        confetti({
+          particleCount: 2,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 },
+          colors: colors
+      })
+
+      if (Date.now() < end) {
+        requestAnimationFrame(frame);
+      }
+    }());
+    }, 3000)
+    }
   },
   created() {
     console.log(this)
     this.fetchList()
-    // this.makeItRain()
+    this.makeItRain()
 
   },
 }

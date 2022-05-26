@@ -77,6 +77,7 @@
   .userinfo {
     display: flex;
     margin-left: auto;
+    margin-right: 20px;
   }
 
   .p {

@@ -151,7 +151,7 @@ export default {
 
   likeReview({ commit, getters }, {moviePk, reviewPk}) {
     console.log('넘어와라..!')
-    console.log(reviewPk)
+    // console.log(reviewId)
     axios({
       url: drf.movies.likeReview(moviePk, reviewPk),
       method: 'post',
