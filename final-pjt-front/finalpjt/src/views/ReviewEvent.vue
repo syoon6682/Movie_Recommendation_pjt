@@ -37,7 +37,7 @@
         <h4>나의 순위</h4>
         <br>
         <p>현재 순위: {{rank}}</p>
-        <p>현재 points: {{current}} pts</p>
+        <p>현재 포인트: {{current}} pts</p>
       </div>
 
       <div class="totalrank">
