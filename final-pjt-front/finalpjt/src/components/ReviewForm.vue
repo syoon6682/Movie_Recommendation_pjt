@@ -26,7 +26,9 @@ import { mapActions } from 'vuex'
     },
     data() {
       return {
+        reviewId: this.review.pk, 
         newReview: {
+          reviewPk: this.review.pk,
           title: this.review.title,
           content: this.review.content,
         }
@@ -36,16 +38,16 @@ import { mapActions } from 'vuex'
     methods: {
       ...mapActions(['createReview', 'updateReview']),
       onSubmit() {
-        // if (this.action === 'create') {
+        if (this.action === 'create') {
           const payload = {newReview: this.newReview, moviePk: this.$store.getters.recommMovie.id, }
           this.createReview(payload)
-        // } else if (this.action === 'update') {
-        //   const payload = {
-        //     pk: this.review.pk,
-        //     ...this.newReview,
-        //   }
-          // this.updateReview(payload)
-        // }
+        } else if (this.action === 'update') {
+          const payload = {
+            moviePk: this.$store.getters.recommMovie.id,
+            ...this.newReview,
+          }
+          this.updateReview(payload)
+        }
       },
     },
   }

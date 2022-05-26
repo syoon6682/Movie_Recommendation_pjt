@@ -102,4 +102,8 @@ export default {
   .text {
     color: white;
   }
+
+  .moviereview {
+    color: white;
+  }
 </style>

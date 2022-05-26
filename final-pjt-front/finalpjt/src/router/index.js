@@ -31,6 +31,7 @@ import question5 from '@/views/questions/question5.vue'
 import MovieDetail from '@/views/MovieDetail.vue'
 import ReviewDetail from '@/views/ReviewDetail.vue'
 import NewReview from '@/views/NewReview.vue'
+import ReviewEdit from '@/views/ReviewEdit.vue'
 
 
 
@@ -144,6 +145,11 @@ const routes = [
     path: '/movie/:movieId/review/:reviewId',
     name: 'reviewdetail',
     component: ReviewDetail
+  },
+  {
+    path: '/movie/:movieId/review/:reviewId/edit',
+    name: 'reviewedit',
+    component: ReviewEdit
   },
   {
     path: '/404',

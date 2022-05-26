@@ -1,12 +1,9 @@
 <template>
   <div class="comment-list">
-    
+        
     <ul>
-      <li>
-      <comment-item 
-        v-for="comment in comments" 
-        :comment="comment" :key="comment.pk">
-      </comment-item>        
+      <li v-for="comment in comments" :key="comment.pk">
+        <comment-item :comment="comment"></comment-item>        
       </li>
     </ul>
 

@@ -26,7 +26,7 @@ export default {
       reviewId: this.$route.params.reviewId,
     }
   },
-  computed: {
+  computed: { 
     ...mapGetters(['reviews', 'recommMovie'])
   },
   methods: {
