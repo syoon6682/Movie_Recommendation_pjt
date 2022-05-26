@@ -279,16 +279,14 @@ def recommendation_result(request):
 
     return Response(serializer.data)
 
-
-
-def event_list(request):
-    pass
-
-def popcorn(request):
-    pass
-
+@api_view(('GET',))
 def review_event(request):
-    pass
+    user = request.user
+    reviews = Review.objects.annotate(
+    comment_count=Count('comments', distinct=True),
+    like_count=Count('like_users', distinct=True)).filter(user=user).order_by('-pk')
+    serializer = ReviewListSerializer(reviews, many=True)
+    return Response(serializer.data)
 
 def movie_making(request):
     pass

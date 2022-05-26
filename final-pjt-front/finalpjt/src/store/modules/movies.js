@@ -8,17 +8,14 @@ export default {
 
   state: {
     reviews: [],
-    review: { },
-
+    review: {},
     comments: [],
-
     answer: [],
     answer1: localStorage.getItem('answer1'),
     answer2: localStorage.getItem('answer2'),
     answer3: localStorage.getItem('answer3'),
     answer4: localStorage.getItem('answer4'),
     answer5: localStorage.getItem('answer5'),
-
     movies: null
   },
 
@@ -30,7 +27,6 @@ export default {
       return state.review.user?.username === getters.currentUser.username
     },
     isReview: state => !_.isEmpty(state.review),
- 
     comments: state => state.comments,
 
     // recommendation 대답들
