@@ -1,8 +1,8 @@
 <template>
-  <div class="container">
+<div class="container">
 
-    <h1> 오늘의 리뷰왕 </h1>
-    <h2>{{ totalRank[1].name }}</h2>
+    <h1> 오늘의 리뷰<span class="king">왕</span> </h1>
+    <h2>" {{ totalRank[1].name }} "</h2>
     <!-- <p v-for="content in totalRank" :key="content.rank">
       {{ content}}
     </p> -->
@@ -32,16 +32,21 @@
       <p>내 review에 달린 전체 좋아요 수 : {{likeSum}}</p>
     </div>
     
+    <br>
+    <br>
+    <h2> RANKING </h2>
+    <br>
     <div class="ranking">
       <div class="myrank">
         <h4>나의 순위</h4>
         <br>
         <p>현재 순위: {{rank}}</p>
-        <p>현재 포인트: {{current}} pts</p>
+        <p>현재 points: {{current}} pts</p>
       </div>
 
       <div class="totalrank">
         <h4>전체 순위</h4>
+        <br>
         <ul>
           <li v-for="content in totalRank" :key="content.rank">
             <p>{{content.rank}}위: {{content.name}}, 포인트: {{content.point}} PT</p>
@@ -108,7 +113,7 @@ export default {
 
   .box {
     display: relative;
-    width: 53%;
+    width: 80%;
     /* border: solid 0.2px; */
     /* border-color: black; */
     background-color: rgb(255, 203, 203);
@@ -127,8 +132,8 @@ export default {
   }
 
   .myrank {
-    display: relative;
-    width: 100%;
+    display: absolute;
+    width: 500px;
     height: 400px;
     border-radius: 10px;
     padding: 30px;
@@ -137,9 +142,8 @@ export default {
   }
 
   .totalrank {
-    display: relative;
-    width: 400px;
-    width: 100%;
+    display: absolute;
+    width: 500px;
     height: 400px;
     border-radius: 10px;
     padding: 30px;
@@ -165,5 +169,9 @@ export default {
 
   }
 
+  .king {
+    color: rgb(230, 35, 35);
+    font-weight: 800;
+  }
 
 </style>
