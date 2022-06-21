@@ -24,6 +24,8 @@ def profileupdate(request, username):
         serializer.save()
         return Response(serializer.data)
 
+# 소셜로그인은 싫어...
+
 # def add_mileage(request, username):
 #     user = get_object_or_404(User, username=username)
 #     user.mileage = request.user.mileage
