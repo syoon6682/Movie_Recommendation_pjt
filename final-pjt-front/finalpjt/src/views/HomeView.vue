@@ -19,7 +19,6 @@
     </div>
 
     <hr>
-
     <br>
     <br>
 
@@ -97,21 +96,11 @@ export default {
     justify-content: center;
   }
 
-  a {
-    text-decoration: none;
-    color: white;
-    font-size: 50px;
-    font-weight: 900;
-
-  }
-
    .menucontainer {
     display: flex;
     justify-content: center;
     padding: 40px;
   }
-
-
 
   img {
     width: 500px;

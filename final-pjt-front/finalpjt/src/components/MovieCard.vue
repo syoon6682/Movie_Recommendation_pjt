@@ -1,10 +1,9 @@
 <template>
 <div class="col mb-4">
   <div class="card" style="width: 18rem;" props="movie">
-    <img :src="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="poster" class="card-img-top">
     <div class="card-body">
       <!-- <h3> {{movie.title}}</h3> -->
-      <router-link  :to="{ name: 'moviedetail', params: { movieId: movie.id }}">MOVIE DETAIL</router-link>
+      <router-link  :to="{ name: 'moviedetail', params: { movieId: movie.id }}"> <img :src="'https://image.tmdb.org/t/p/w500' + movie.poster_path" alt="poster" class="card-img-top"></router-link>
     </div>
   </div>
 </div>
