@@ -1,10 +1,11 @@
 <template>
   <div>
   <b-navbar toggleable="lg" type="dark" variant="dark">
-    <b-navbar-brand class="homelogo p-3" style="font-size:65px" href="/">
+    <b-navbar-brand class="homelogo" href="/">
       <!-- <em><i class="fa-solid fa-clapperboard-play"></i></em> -->
       <span class="homelogo">
-       <i class="fa-regular fa-file-video"></i> CINE
+       <i class='bx bxs-camera-movie'></i> CINE
+       <!-- <i class="fa-regular fa-file-video"></i> CINE -->
       </span>
       <span class="p homelogo">POP</span>
     </b-navbar-brand>
@@ -13,31 +14,31 @@
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
-        <b-nav-item class="navitem" href="/event" style="font-size:30px">이벤트</b-nav-item>
-        <b-nav-item class="navitem" href="/recommendation/question1" style="font-size:30px">영화추천</b-nav-item>
+        <b-nav-item class="navitem" href="/event">이벤트</b-nav-item>
+        <b-nav-item class="navitem" href="/recommendation/question1">영화추천</b-nav-item>
       </b-navbar-nav>
 
       <!-- Right aligned nav items -->
       <b-navbar-nav right class="userinfo ml-3">
-        <b-nav-item v-if="!isLoggedIn" href="/login" style="font-size:30px">Log In</b-nav-item>
-        <b-nav-item v-if="!isLoggedIn" href="/signup" style="font-size:30px">Sign Up</b-nav-item>
-        <b-nav-item-dropdown right v-if="isLoggedIn" style="font-size:30px">
+        <b-nav-item v-if="!isLoggedIn" href="/login">Log In</b-nav-item>
+        <b-nav-item v-if="!isLoggedIn" href="/signup">Sign Up</b-nav-item>
+        <b-nav-item-dropdown right v-if="isLoggedIn">
           <!-- Using 'button-content' slot -->
           <template #button-content>
-            <em > 
+            <em> 
               <i class="fa-solid fa-circle-user"></i>
               {{ currentUser.username }}
             </em>
           </template>
-          <b-dropdown-item class=" ml-3">
-            <b-link :to="{ name: 'profile', params: { username } }" append>
+          <b-dropdown-item class="ml-3">
+            <b-link class="blink" :to="{ name: 'profile', params: { username } }" append>
               {{ currentUser.username }}'s PAGE
             </b-link>            
           </b-dropdown-item>
           <b-dropdown-item>
-            <span class="logout">
-              <router-link @click.native="logout" :to="{ name: 'home' }">Log Out</router-link>
-            </span>
+            <b-link class="blink" @click.native="logout()" :to="{ name: 'home'}" append>
+              Log Out
+            </b-link> 
           </b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
@@ -68,23 +69,30 @@
 <style scoped>
   @import url('https://fonts.googleapis.com/css2?family=Bangers&family=IBM+Plex+Sans+KR:wght@300;500&display=swap');
   @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Poppins&family=IBM+Plex+Sans+KR:wght@300;500&display=swap');
-
-
+  
   .navitem {
-    font-family: 'IBM Plex Sans KR', sans-serif;
+    font-family: 'IBM Plex Sans KR, sans-serif';
     font-weight: 300;
+    font-size: 25px;
+    margin-left: 15px;
   }
 
   .homelogo {
     font-family: 'Bangers', sans-serif;
+    
+    /* 자간 설정 -> 자간을 줄이면 덜 font스러워서 로고 느낌이 난다!*/
     letter-spacing: 1px;
+    font-size: 50px;
+    margin-left: 20px;
+    /* padding: 0px; */
 
   }
 
   .userinfo {
     display: flex;
     margin-left: auto;
-    margin-right: 20px;
+    margin-right: 40px;
+    font-size: 25px;
   }
 
   .p {
@@ -97,5 +105,17 @@
     margin-left: 5px;
     margin-right: 0px;
   }
+
+  em {
+    font-size: 25px;
+  }
+
+  .blink{
+    font-size: 15px;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    font-weight: 300;
+  }
+  
 
 </style>
