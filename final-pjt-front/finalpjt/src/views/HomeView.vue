@@ -23,7 +23,7 @@
     <br>
 
     
-      <div class="row row-cols-3 row-cols-md-5 g-4">
+      <div class="row row-cols-3 row-cols-md-5 g-4" style="border: black;">
         <movie-card v-for="movie in movies.movies" :key="movie.id" :movie="movie"></movie-card>
       </div>
     </div>
@@ -91,6 +91,10 @@ export default {
 </script>
 
 <style scoped>
+  * {
+    background-color: black;
+  }
+
   .container {
     display: flex;
     justify-content: center;

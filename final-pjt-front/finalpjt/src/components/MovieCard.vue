@@ -23,14 +23,30 @@ export default {
 </script>
 
 <style scoped>
+  * {
+    background-color: black;
+    border: none;
+    padding: 0px;
+  }
+
   img:hover {
-    transform: scale(1.05); 
+    transform: scale(1.05);
+    border: black; 
   }
 
   a {
     /* text-decoration: none; */
     font-size: 20px;
     color: rgb(255, 66, 66);
+  }
+
+  .card {
+    border: none;
+  }
+
+  .card-body {
+    border: black;
+    padding: 0px;
   }
 
 
