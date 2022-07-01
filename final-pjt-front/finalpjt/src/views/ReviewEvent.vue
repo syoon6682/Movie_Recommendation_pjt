@@ -1,14 +1,13 @@
 <template>
-<div class="container">
-
-    <h1> 오늘의 리뷰<span class="king">왕</span> </h1>
+<div>
+  <div class="container">
+    <h1 class="title"> 오늘의 리뷰왕 </h1>
     <h2>" {{ totalRank[1].name }} "</h2>
     <!-- <p v-for="content in totalRank" :key="content.rank">
       {{ content}}
     </p> -->
-
-    <div class="expbox">
-      
+    <div class="bigbox">
+      <div class="expbox">
         <h5>오늘의 리뷰왕은 다음과 같이 선출됩니다.</h5>
         <br>
         <p>Review 글 한 개당 1000 point</p>
@@ -18,43 +17,46 @@
         <br>
         <br>
         <h5>리뷰왕이 되신 분께는 현재 상영중인 영화 티켓 한 장을 상품으로 드립니다!</h5>
-      
-    </div>
+      </div>
 
-    <hr>
-    <br>
-    <h2>{{profile.username}} 님의 개인 기록</h2>
-    <br>
-    <div class="box">
-      <h4>총 {{reviewSum}} 개의 리뷰를 달았어요!</h4>
+
+      <hr>
       <br>
-      <p>내 review에 달린 전체 comment 수 : {{commentSum}}</p>
-      <p>내 review에 달린 전체 좋아요 수 : {{likeSum}}</p>
-    </div>
-    
-    <br>
-    <br>
-    <h2> RANKING </h2>
-    <br>
-    <div class="ranking">
-      <div class="myrank">
-        <h4>나의 순위</h4>
+      <h2>{{profile.username}} 님의 개인 기록</h2>
+      <br>
+      <div class="box">
+        <h4>총 {{reviewSum}} 개의 리뷰를 달았어요!</h4>
         <br>
-        <p>현재 순위: {{rank}}</p>
-        <p>현재 points: {{current}} pts</p>
+        <p>내 review에 달린 전체 comment 수 : {{commentSum}}</p>
+        <p>내 review에 달린 전체 좋아요 수 : {{likeSum}}</p>
       </div>
+      
+      <br>
+      <br>
+      <h2> RANKING </h2>
+      <br>
 
-      <div class="totalrank">
-        <h4>전체 순위</h4>
-        <br>
-        <ul>
-          <li v-for="content in totalRank" :key="content.rank">
-            <p>{{content.rank}}위: {{content.name}}, 포인트: {{content.point}} PT</p>
-          </li>
-        </ul>
+      <div class="ranking">
+        <div class="myrank">
+          <h4>나의 순위</h4>
+          <br>
+          <p>현재 순위: {{rank}}</p>
+          <p>현재 points: {{current}} pts</p>
+        </div>
+
+        <div class="totalrank">
+          <h4>전체 순위</h4>
+          <br>
+          <ul>
+            <li v-for="content in totalRank" :key="content.rank">
+              <p>{{content.rank}}위: {{content.name}}, 포인트: {{content.point}} PT</p>
+            </li>
+          </ul>
+        </div>
       </div>
-    </div>
+    </div>  
   </div>
+</div>
 </template>
 
 <script>
@@ -89,7 +91,9 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Bangers&family=Poppins&family=IBM+Plex+Sans+KR:wght@300;500&display=swap');
   * { 
       font-family: 'IBM Plex Sans KR', sans-serif;
+      background-color: rgb(200 0 0);
       /* font-size: 25px; */
+      color: white;
     } 
 
   .title {
@@ -99,33 +103,37 @@ export default {
 
 
   .container {
+    padding: 50px;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-
-    margin-top: 100px;
-    box-shadow: 2px 0 9px rgba(0.1, 0, 0.2, 0.5);
-    border-radius: 10px;
-    padding: 50px;
-    
   }
+
+    .bigbox {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+      width: 100%;
+      border-radius: 20px;
+      margin-top: 40px;
+      line-height: 20px;
+      border: solid white 3px;
+    }
 
   .box {
     display: relative;
-    width: 80%;
-    /* border: solid 0.2px; */
-    /* border-color: black; */
-    background-color: rgb(255, 203, 203);
+    width: 100%;
     border-radius: 15px;
-    color: black;
     font-size: 20px;
     padding: 30px;
     margin-bottom: 10px;
-    box-shadow: 2px 0 9px rgba(0.1, 0, 0.2, 0.5);
   }
 
   .ranking {
+    width: 100%;
     display: flex;
     justify-content: center;
     color: black;
@@ -138,7 +146,7 @@ export default {
     border-radius: 10px;
     padding: 30px;
     margin-right: 7px;
-    box-shadow: 2px 0 9px rgba(0.1, 0, 0.2, 0.5);
+    border: dotted 2px white;
   }
 
   .totalrank {
@@ -148,7 +156,7 @@ export default {
     border-radius: 10px;
     padding: 30px;
     margin-left: 7px;
-    box-shadow: 2px 0 9px rgba(0.1, 0, 0.2, 0.5);
+    border: dotted 2px white;
   }
 
   p {
@@ -158,20 +166,13 @@ export default {
 
 
   .expbox {
-
-    background-color: rgb(211, 211, 211);
     padding: 20px;
     display: relative;
-    width: 70%;
+    width: 100%;
     height: 205px;
     border-radius: 20px;
     line-height: 6px;
-
   }
 
-  .king {
-    color: rgb(230, 35, 35);
-    font-weight: 800;
-  }
 
 </style>

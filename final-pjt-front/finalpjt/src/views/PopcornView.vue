@@ -78,10 +78,6 @@ export default {
     justify-content: center;
     flex-direction: column;
     align-items: center;
-
-    /* margin-top: 50px; */
-    /* box-shadow: 2px 0 9px rgba(0.1, 0, 0.2, 0.5); */
-    /* border-radius: 10px; */
     padding: 50px;
     
   }
