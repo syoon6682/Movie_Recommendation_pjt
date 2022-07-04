@@ -88,7 +88,7 @@ home은 처음에 이벤트와 영화 추천 페이지로 바로 갈 수 있는 
 
 
 
-### 2-3 로그인 화면
+### 2-3 Log In 및 Sign Up 
 
 : 로그인 상태가 아닐 경우 Navbar 상단 우측을 통해서 Log in 화면으로 들어갈 수 있으며, 계정이 없는 경우 바로 sign up 화면으로 들어갈 수 있습니다. 
 
@@ -110,7 +110,7 @@ Home 또는 Recommendation에서 노출된 movie 카드를 통해 Movie detail�
 
 ![image-20220527084340291](README.assets/image-20220527084340291.png)
 
-![image-20220527084408346](README.assets/image-20220527084408346.png)
+![image-20220704215016725](README.assets/image-20220704215016725.png)
 
 본 페이지는 영화 추천 기능으로서 크게 RecommendationQuestion, RecommendationResult로 구성이 되어 있습니다. RecommendationQuestion의 기능은 User들의 영화를 보는 상황을 4가지 주제(같이 보는 사람, 기분, 나이대, 장소)를 localStorage에 응답을 저장해주는 역할을 합니다. 그 후 Question4에서 QuestionResult로 넘어가면 그 동안 받았던 응답을 Django 데이터 서버에 옮겨주면서 응답받은 조건에 맞게 가공한 후 인기도 순위가 높은 상위 10개의 영화를 QuestionResult 페이지에 응답을 전달해줍니다. 이러한 추천 방법은 약 320가지의 상황에 대한 추천을 해줄 수 있으며 해당 결과 화면에서 바로 movie detail 화면에 들어갈 수 있게 설계를 해두어 영화에 대한 사람들의 실제 평가도 확인할 수 있습니다. 
 
@@ -130,13 +130,23 @@ Home 또는 Recommendation에서 노출된 movie 카드를 통해 Movie detail�
 
 ## 6. Event: Review
 
+
+
+(리뷰 이벤트 전체 화면)
+
 ![KakaoTalk_20220704_212324822](README.assets/KakaoTalk_20220704_212324822.gif)
+
+
+
+(리뷰 작성 전후 포인트 및 현황)
+
+![image-20220704215936420](README.assets/image-20220704215936420.png)
+
+
 
 \- 이벤트 설명: User의 활동 내역, 즉, 작성한 Review 수, 그 Review에 달린 댓글 수와 좋아요 수를 포인트화하고 이 포인트를 통해 다른 User들과 랭킹을 매기는 서비스입니다. 이때 작성한 review는 개당 1000점, 달린 댓글은 개당 500점, 달린 좋아요는 개당 200점을 부여하였고 상위권에 랭크되어 있는 user는 event 종료 후 상품을 보내준다는 설정으로 이를 통해 user들의 활발한 커뮤니티 활동을 장려하는 이벤트입니다. 
 
 \- 기능 구조: 먼저 user id를 통해 review를 불러오는 요청을 django에 보낸 후 돌려받은 응답을 가공하여 개인의 point 및 세부정보를 구성합니다. 이렇게 저장된 포인트를 {name, point} 형태로 localstorage에 추가, 저장하여 다른 유저들의 정보와 비교해볼 수 있는 상태로 만듭니다. 이때 전체 user의 랭킹을 구현하기 위해 localstorage 저장 전에 point 값을 기준으로 정렬을 해준 뒤 저장을 해주며 전체 랭킹을 보일 때는 이렇게 정렬된 localstorage를 key와 value 그리고 rank라는 값을 따로 만들어 화면에 보여주는 작업을 진행했습니다. 
-
-
 
 
 
