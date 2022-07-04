@@ -56,6 +56,9 @@ export default {
 
 </script>
 
-<style>
-
+<style scoped>
+  * {
+    padding: 20px;
+    background-color: black;
+  }
 </style>
