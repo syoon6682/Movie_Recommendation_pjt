@@ -4,11 +4,15 @@
 
 ## 1. 개요
 
-영화 추천 서비스 및 영화 관련 이벤트 사이트
+: 영화 추천 서비스 및 영화 관련 이벤트 사이트
 
 추천 서비스는 4가지의 질문을 통해 사용자의 영화보는 조건을 파악 후 조건에 가장 부합하는 영화 10편을 제공합니다. 약 320가지의 조건에 대한 응답이 가능한 추천 서비스입니다. 
 
 영화 관련 이벤트는 Popcorn 이벤트와 Review 이벤트로 나누어집니다. Popcorn 이벤트는 소정의 돈을 내고 참가하면 일정 확률로 팝콘을 얻을 수 있는 영화관 방문 유도 이벤트이며, Review이벤트의 경우 User의 활동내역을 포인트화, 그 후 다른 User들과의 랭킹화를 통해 Community 활성화를 유도하는 이벤트로 이루어져있습니다. 
+
+기능별로 구현을 했고, 각 기능별로 독립성이 높기 때문에 기능별로 진행합니다. 순서는 Home 및 기본 Component, Movie 및 Community, Recommendation, Popcorn event, Review event로 진행합니다. 
+
+
 
 
 
@@ -16,17 +20,21 @@
 
 back: Django Restframework
 
-front: Vue, vuex
+front: Vue, Vuex, Bootstrap
+
+DB: SQLite
+
+협업툴: Gitlab, Git, Notion, Diagram.io
 
 
 
-### 설명 진행
 
-기능별로 구현을 했고, 각 기능별로 독립성이 높기 때문에 기능별로 설명 진행하겠습니다. 순서는 Home 및 기본 Component, Movie 및 Community, Recommendation, Popcorn event, Review event로 진행하도록 하겠습니다. 
 
-활용한 작업도구
+### 활용한 작업도구
 
 - Kanban Board
+
+  : Kanban Board 활용을 통한 일정 관리 및 프로젝트 관리
 
 ![image-20220527084208016](README.assets/image-20220527084208016.png)
 
@@ -34,7 +42,11 @@ front: Vue, vuex
 
 - ERD 도표
 
+  : ERD 도표를 작성해둠으로서 데이터 모델을 미리 설계 및 구상
+
 ![image-20220527084303278](README.assets/image-20220527084303278.png)
+
+
 
 
 
@@ -42,19 +54,53 @@ front: Vue, vuex
 
 
 
-### 2-1 기본 Component
+### 2-1 기본 Component 및 Navbar
 
 Cinepop의 모든 페이지는 기본적으로 navbar를 가지고 있으며 해당 navbar를 통해 home, 영화 추천, 이벤트 참여, 로그인, 로그아웃, 계정 생성 페이지로 바로 이동할 수 있습니다. 
+
+Navbar의 경우, 로그아웃 상태에서는 우측에 Log in, Sign up이 있으며 사이트에서 제공하는 기능들을 활용할 수 없습니다. 
+
+로그인 상태에서는 우측에 유저 이름이 표시가 되며 클릭시 드롭다운 메뉴가 열리며 유저의 프로필 페이지에 따로 들어갈 수 있습니다.
+
+
+
+(로그아웃 시 Navbar)
+
+![image-20220704203902759](README.assets/image-20220704203902759.png)
+
+
+
+(로그인 시 Navbar)
+
+![image-20220704204251077](README.assets/image-20220704204251077.png)
 
 
 
 ### 2-2 Home
 
-home은 처음에 이벤트로 바로 갈 수 있는 이미지로 구성되어 있으며 하단에는 TMDB 제공의 인기 영화를 movie card component를 활용하여 나열해두었습니다. 그래서 home을 통해 movie detail page 혹은 특정 event 페이지로 이동이 가능합니다. 
+home은 처음에 이벤트와 영화 추천 페이지로 바로 갈 수 있는 이미지로 구성되어 있으며 하단에는 TMDB 제공의 인기 영화를 movie card component를 활용하여 나열해두었습니다. 그래서 home을 통해 movie detail page 혹은 특정 event 페이지로 이동이 가능합니다. 
+
+
+
+(홈화면 및 Navbar)
+
+![KakaoTalk_20220704_211050487](README.assets/KakaoTalk_20220704_211050487.gif)
+
+
+
+### 2-3 로그인 화면
+
+: 로그인 상태가 아닐 경우 Navbar 상단 우측을 통해서 Log in 화면으로 들어갈 수 있으며, 계정이 없는 경우 바로 sign up 화면으로 들어갈 수 있습니다. 
+
+![Login](README.assets/KakaoTalk_20220704_211050487_01.gif)
 
 
 
 ## 3. Movie 및 Community
+
+![KakaoTalk_20220704_212620265](README.assets/KakaoTalk_20220704_212620265.gif)
+
+
 
 Home 또는 Recommendation에서 노출된 movie 카드를 통해 Movie detail에 들어올 수 있습니다. 이때 특정 영화에 대한 활발한 토론을 이끌어내기 위해 Community는 하나의 공간이 아닌 각 Movie detail마다 생성이 되어 있으며 해당 Community에서 review의 작성, 수정 삭제, review에 대한 comment의 review 수정 삭제, review에 대한 좋아요, 좋아요 취소를 실행할 수 있습니다. 
 
@@ -72,7 +118,7 @@ Home 또는 Recommendation에서 노출된 movie 카드를 통해 Movie detail�
 
 ## 5. Event: Popcorn
 
-![image-20220527084624080](README.assets/image-20220527084624080.png)
+![image-20220704204835830](README.assets/image-20220704204835830.png)
 
 ![image-20220527084630484](README.assets/image-20220527084630484.png)
 
@@ -84,7 +130,7 @@ Home 또는 Recommendation에서 노출된 movie 카드를 통해 Movie detail�
 
 ## 6. Event: Review
 
-![image-20220527084658041](README.assets/image-20220527084658041.png)
+![KakaoTalk_20220704_212324822](README.assets/KakaoTalk_20220704_212324822.gif)
 
 \- 이벤트 설명: User의 활동 내역, 즉, 작성한 Review 수, 그 Review에 달린 댓글 수와 좋아요 수를 포인트화하고 이 포인트를 통해 다른 User들과 랭킹을 매기는 서비스입니다. 이때 작성한 review는 개당 1000점, 달린 댓글은 개당 500점, 달린 좋아요는 개당 200점을 부여하였고 상위권에 랭크되어 있는 user는 event 종료 후 상품을 보내준다는 설정으로 이를 통해 user들의 활발한 커뮤니티 활동을 장려하는 이벤트입니다. 
 
@@ -100,10 +146,16 @@ Home 또는 Recommendation에서 노출된 movie 카드를 통해 Movie detail�
 
 - State의 상태가 없어지는 상황이 가끔 발생하는데, 상태가 유지되도록 수정
 - 각 이벤트에 대한 조금 더 명확한 상황 설정과 디테일
+- 조금 더 명시적인 디자인
 - 초반 설계 시 변수 정의나 작성 원칙을 좀더 명확히 할 것
 - Git 활용에 대한 학습과 이해도
+- 소셜로그인 구현
 
 
 
+실제로 보완한 점
 
+- 실제로 이벤트 페이지의 디자인 개선
+- 소셜로그인 구현
+- 홈페이지 디자인 구현
 
