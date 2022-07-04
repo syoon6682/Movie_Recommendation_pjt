@@ -7,19 +7,23 @@
       {{ content}}
     </p> -->
     <div class="bigbox">
+      <h2>이벤트 설명</h2>
+      <br>
       <div class="expbox">
         <h5>오늘의 리뷰왕은 다음과 같이 선출됩니다.</h5>
         <br>
         <p>Review 글 한 개당 1000 point</p>
-        <p>해당 Review 글에 달린 comment 한 개당 500 pointt,</p>
+        <p>해당 Review 글에 달린 comment 한 개당 500 point,</p>
         <p>해당 Review 글에 달린 Like 한 개당 200 point가 적립되며, </p>
         <p>가장 많은 포인트를 가진 회원이 오늘의 리뷰왕이 됩니다! </p>
         <br>
         <br>
         <h5>리뷰왕이 되신 분께는 현재 상영중인 영화 티켓 한 장을 상품으로 드립니다!</h5>
+        <hr>
       </div>
+      <br>
 
-
+<div class="line"></div>
       <hr>
       <br>
       <h2>{{profile.username}} 님의 개인 기록</h2>
@@ -124,7 +128,10 @@ export default {
     }
 
   .box {
-    display: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     border-radius: 15px;
     font-size: 20px;
@@ -167,12 +174,23 @@ export default {
 
   .expbox {
     padding: 20px;
-    display: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: 205px;
     border-radius: 20px;
-    line-height: 6px;
+    line-height: 12px;
+
+    
   }
 
+  .line {
+    border: solid white 1px;
+    width: 100%;
+    height: 0px;
+    background-color: white;
+  }
 
 </style>
